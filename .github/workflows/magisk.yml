@@ -73,6 +73,24 @@ jobs:
                 matrix.arch = ["x64"];
                 break;
             }
+            let magisk_apk = "${{ github.event.inputs.magisk_apk }}"
+            switch ( magisk_apk ) {
+              default:
+                matrix.magisk_apk = ["stable"];
+                break;
+            }
+            let gapps_variant = "${{ github.event.inputs.gapps_variant }}"
+            switch ( gapps_variant ) {
+              default:
+                matrix.gapps_variant = ["pico"];
+                break;
+            }
+            let root_sol = "${{ github.event.inputs.root_sol }}"
+            switch ( root_sol ) {
+              default:
+                matrix.root_sol = ["magisk"];
+                break;
+            }
             core.setOutput("matrix",JSON.stringify(matrix));
 
   build:
