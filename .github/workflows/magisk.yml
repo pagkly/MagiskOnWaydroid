@@ -256,8 +256,14 @@ jobs:
           sudo mkdir userdata
           sudo mount -o loop ${{ matrix.arch }}/system.img system
           sudo mount -o loop ${{ matrix.arch }}/vendor.img system/vendor
-          sudo mount -o loop ${{ matrix.arch }}/product.img system/product
-          sudo mount -o loop ${{ matrix.arch }}/system_ext.img system/system_ext
+          sudo mv system/product system/product_ln
+          sudo mkdir system/product
+          sudo mount --bind $(pwd)/system/system/product $(pwd)/system/product
+          ls system/product
+          sudo mv system/system_ext system/system_ext_ln
+          sudo mkdir system/system_ext
+          sudo mount --bind $(pwd)/system/system/system_ext $(pwd)/system/system_ext
+          ls system/system_ext
           qemu-img convert -O raw ${{ matrix.arch }}/userdata.vhdx userdata.img
           sudo mount -o loop userdata.img userdata
       - name: Integrate Magisk
@@ -497,8 +503,12 @@ jobs:
       - name: Umount images
         run: |
           sudo umount system/vendor
-          sudo umount system/product
-          sudo umount system/system_ext
+          sudo umount -l system/product
+          sudo rm -rf system/product
+          sudo mv system/product_ln system/product
+          sudo umount -l system/system_ext
+          sudo rm -rf system/system_ext
+          sudo mv system/system_ext_ln system/system_ext
           sudo umount system
           sudo umount userdata
           qemu-img convert -o subformat=dynamic -f raw -O vhdx userdata.img ${{ matrix.arch }}/userdata.vhdx
