@@ -285,7 +285,7 @@ jobs:
           qemu-img convert -O raw ${{ matrix.arch }}/userdata.vhdx userdata.img
           sudo mount -o loop userdata.img userdata
       - name: Integrate Magisk
-        if: ${{ s.inputs.root_sol == 'magisk' || github.event.inputs.root_sol == '' }}
+        if: ${{ github.event.inputs.root_sol == 'magisk' || github.event.inputs.root_sol == '' }}
         run: |
           sudo mkdir system/sbin
           sudo chcon --reference system/init.environ.rc system/sbin
