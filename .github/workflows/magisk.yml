@@ -11,12 +11,10 @@ on:
       arch:
         description: "Build arch"
         required: true
-        default: "x64 & arm64"
+        default: "x64"
         type: choice
         options:
         - x64
-        - arm64
-        - x64 & arm64
       magisk_apk:
         description: "Magisk version"
         required: true
@@ -236,6 +234,9 @@ jobs:
       - name: Extract GApps and expand images
         if: ${{ github.event.inputs.gapps_variant != 'none' && github.event.inputs.gapps_variant != '' }}
         run: |
+          rm -rf x64/{system,vendor}.img
+          wget https://sourceforge.net/projects/blissos-dev/files/waydroid/lineage/lineage-18.1/Lineage-OS-18.1-waydroid_x86_64-202111291420-foss-sd-hd-ex_ax86-vaapi_gles-aep.zip/download -O los.zip
+          7z x los.zip -ox64/
           mkdir gapps
           unzip -p gapps.zip {Core,GApps}/'*.lz' | tar --lzip -C gapps -xvf - -i --strip-components=2 --exclude='setupwizardtablet-x86_64' --exclude='packageinstallergoogle-all' --exclude='speech-common' --exclude='markup-lib-arm' --exclude='markup-lib-arm64' --exclude='markup-all' --exclude='setupwizarddefault-x86_64' --exclude='pixellauncher-all' --exclude='pixellauncher-common'
 
@@ -287,6 +288,7 @@ jobs:
           chmod +x ./magiskpolicy
           echo '/dev/wsa-magisk(/.*)?    u:object_r:magisk_file:s0' | sudo tee -a system/vendor/etc/selinux/vendor_file_contexts
           echo '/data/adb/magisk(/.*)?   u:object_r:magisk_file:s0' | sudo tee -a system/vendor/etc/selinux/vendor_file_contexts
+          echo '/system/bin/strace u:object_r:zygote_socket:s0' | sudo tee -a system/vendor/etc/selinux/vendor_file_contexts
           sudo ./magiskpolicy --load system/vendor/etc/selinux/precompiled_sepolicy --save system/vendor/etc/selinux/precompiled_sepolicy --magisk "allow * magisk_file lnk_file *"
           sudo tee -a system/system/etc/init/hw/init.rc <<EOF
 
@@ -311,8 +313,16 @@ jobs:
               rm /dev/.magisk_unblock
               start IhhslLhHYfse
               start FAhW7H9G5sf
+              # fix for magisk modules to load properly
+              umount /dev/magisk/.magisk/mirror/data
+              rm /dev/magisk/.magisk/mirror/data
+              symlink /data /dev/magisk/.magisk/mirror/data
               wait /dev/.magisk_unblock 40
               rm /dev/.magisk_unblock
+              # fix for Termux to work
+              mount devpts devpts /dev/pts noexec nosuid gid=5 mode=620
+              mknod /dev/tty c 5 0
+              chmod 0666 /dev/tty
 
           service IhhslLhHYfse /system/bin/sh /sbin/loadpolicy.sh
               user root
@@ -353,8 +363,33 @@ jobs:
           EOF
           wine64 ~/makepri.exe new /pr pri /in MicrosoftCorporationII.WindowsSubsystemForAndroid /cf priconfig.xml /of ${{ matrix.arch }}/resources.pri /o
           sed -i -zE "s/<Resources.*Resources>/<Resources>\n$(cat xml/* | grep -Po '<Resource [^>]*/>' | sed ':a;N;$!ba;s/\n/\\n/g' | sed 's/\$/\\$/g' | sed 's/\//\\\//g')\n<\/Resources>/g" ${{ matrix.arch }}/AppxManifest.xml
-      - name: Add extra packages
+      - name: Remove FOSS Apps
         run: |
+          sudo rm -rf system/system/app/com.google.android.gsf
+          sudo rm -rf system/system/app/com.aurora.adroid
+          sudo rm -rf system/system/app/com.aurora.store
+          sudo rm -rf system/system/app/com.etesync.syncadapter
+          sudo rm -rf system/system/app/is.xyz.mpv
+          sudo rm -rf system/system/app/me.jfenn.alarmio
+          sudo rm -rf system/system/app/org.microg.gms.droidguard
+          sudo rm -rf system/system/app/org.microg.nlp.backend.ichnaea
+          sudo rm -rf system/system/app/org.microg.nlp.backend.nominatim
+          sudo rm -rf system/system/app/org.schabi.newpipe
+          sudo rm -rf system/system/app/ws.xsoh.etar
+          sudo rm -rf system/system/priv-app/AuroraServices_v1.1.1
+          sudo rm -rf system/system/priv-app/com.google.android.gms
+          sudo rm -rf system/system/priv-app/com.android.vending
+          sudo rm -rf system/system/product/app/Etar
+          sudo rm -rf system/system/product/priv-app/Contacts
+          sudo rm -rf system/system/product/app/ExactCalculator
+          sudo rm -rf system/system/product/priv-app/Eleven
+          sudo rm -rf system/system/app/com.simplemobiletools.gallery.pro
+          sudo rm -rf system/system/app/NotePad
+          sudo rm -rf system/system/app/org.bromite.bromite
+          sudo rm -rf system/system/app/com.google.android.webview
+          sudo rm -rf system/system/app/com.android.webview
+          sudo mv system/system/xbin/su system/system/xbin/suold
+          sudo ls system/system/xbin
           wget -qO- "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/archive/$GITHUB_REF.tar.gz" | sudo tar --wildcards -zxvf- --strip-component=2 '*/${{ matrix.arch }}/system/*'
           sudo find system/system/priv-app -type d -exec chmod 0755 {} \;
           sudo find system/system/priv-app -type f -exec chmod 0644 {} \;
