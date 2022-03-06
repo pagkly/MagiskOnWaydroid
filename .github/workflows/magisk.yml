@@ -84,7 +84,7 @@ jobs:
       - name: Dependencies
         run: |
           pip3 install beautifulsoup4 lxml
-          sudo apt-get update && sudo apt-get install setools lzip qemu-utils wine winetricks p7zip-full
+          sudo apt-get update && sudo apt-get install setools lzip qemu-utils wine winetricks
           wget -qO- "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/archive/$GITHUB_REF.tar.gz" | sudo tar --wildcards -zxvf- -C ~ --strip-component=2 '*/wine/*'
           winetricks msxml6
       - name: Download WSA
