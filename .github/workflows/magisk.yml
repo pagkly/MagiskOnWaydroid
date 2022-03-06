@@ -61,6 +61,10 @@ jobs:
         with:
           script: |
             let matrix = {};
+            let github.event.inputs.arch = ["x64"];
+            let github.event.inputs.magisk_apk = ["stable"];
+            let github.event.inputs.gapps_variant = ["pico"];
+            let github.event.inputs.root_sol = ["magisk"];
             let arch = "${{ github.event.inputs.arch }}"
             switch ( arch ) {
               case "x64":
