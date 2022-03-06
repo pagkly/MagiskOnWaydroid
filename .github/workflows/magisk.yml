@@ -310,7 +310,7 @@ jobs:
           sudo find system/sbin -type f -exec chown root:root {} \;
           sudo find system/sbin -type f -exec chcon --reference system/product {} \;
           chmod +x ./magiskpolicy
-          echo '/dev/wsa-magisk(/.*)?    u:object_r:magisk_file:s0' | sudo tee -a system/vendor/etc/selinux/vendor_file_contexts
+          echo '/dev/magisk(/.*)?    u:object_r:magisk_file:s0' | sudo tee -a system/vendor/etc/selinux/vendor_file_contexts
           echo '/data/adb/magisk(/.*)?   u:object_r:magisk_file:s0' | sudo tee -a system/vendor/etc/selinux/vendor_file_contexts
           echo '/system/bin/strace u:object_r:zygote_socket:s0' | sudo tee -a system/vendor/etc/selinux/vendor_file_contexts
           sudo ./magiskpolicy --load system/vendor/etc/selinux/precompiled_sepolicy --save system/vendor/etc/selinux/precompiled_sepolicy --magisk "allow * magisk_file lnk_file *"
@@ -319,21 +319,21 @@ jobs:
           on post-fs-data
               start logd
               start adbd
-              mkdir /dev/wsa-magisk
-              mount tmpfs tmpfs /dev/wsa-magisk mode=0755
-              copy /sbin/magisk64 /dev/wsa-magisk/magisk64
-              chmod 0755 /dev/wsa-magisk/magisk64
-              symlink ./magisk64 /dev/wsa-magisk/magisk
-              symlink ./magisk64 /dev/wsa-magisk/su
-              symlink ./magisk64 /dev/wsa-magisk/resetprop
-              copy /sbin/magisk32 /dev/wsa-magisk/magisk32
-              chmod 0755 /dev/wsa-magisk/magisk32
-              copy /sbin/magiskinit /dev/wsa-magisk/magiskinit
-              chmod 0755 /dev/wsa-magisk/magiskinit
-              symlink ./magiskinit /dev/wsa-magisk/magiskpolicy
-              mkdir /dev/wsa-magisk/.magisk 700
-              mkdir /dev/wsa-magisk/.magisk/mirror 700
-              mkdir /dev/wsa-magisk/.magisk/block 700
+              mkdir /dev/magisk
+              mount tmpfs tmpfs /dev/magisk mode=0755
+              copy /sbin/magisk64 /dev/magisk/magisk64
+              chmod 0755 /dev/magisk/magisk64
+              symlink ./magisk64 /dev/magisk/magisk
+              symlink ./magisk64 /dev/magisk/su
+              symlink ./magisk64 /dev/magisk/resetprop
+              copy /sbin/magisk32 /dev/magisk/magisk32
+              chmod 0755 /dev/magisk/magisk32
+              copy /sbin/magiskinit /dev/magisk/magiskinit
+              chmod 0755 /dev/magisk/magiskinit
+              symlink ./magiskinit /dev/magisk/magiskpolicy
+              mkdir /dev/magisk/.magisk 700
+              mkdir /dev/magisk/.magisk/mirror 700
+              mkdir /dev/magisk/.magisk/block 700
               rm /dev/.magisk_unblock
               start IhhslLhHYfse
               start FAhW7H9G5sf
@@ -353,12 +353,12 @@ jobs:
               seclabel u:r:magisk:s0
               oneshot
 
-          service FAhW7H9G5sf /dev/wsa-magisk/magisk --post-fs-data
+          service FAhW7H9G5sf /dev/magisk/magisk --post-fs-data
               user root
               seclabel u:r:magisk:s0
               oneshot
 
-          service HLiFsR1HtIXVN6 /dev/wsa-magisk/magisk --service
+          service HLiFsR1HtIXVN6 /dev/magisk/magisk --service
               class late_start
               user root
               seclabel u:r:magisk:s0
@@ -367,7 +367,7 @@ jobs:
           on property:sys.boot_completed=1
               start YqCTLTppv3ML
 
-          service YqCTLTppv3ML /dev/wsa-magisk/magisk --boot-complete
+          service YqCTLTppv3ML /dev/magisk/magisk --boot-complete
               user root
               seclabel u:r:magisk:s0
               oneshot
