@@ -70,7 +70,7 @@ jobs:
                 matrix.arch = ["arm64"];
                 break;
               default:
-                matrix.arch = ["x64", "arm64"];
+                matrix.arch = ["x64"];
                 break;
             }
             core.setOutput("matrix",JSON.stringify(matrix));
