@@ -27,7 +27,7 @@ on:
       gapps_variant:
         description: "Variants of gapps"
         required: true
-        default: "none"
+        default: "pico"
         type: choice
         options:
         - none
@@ -84,7 +84,7 @@ jobs:
       - name: Dependencies
         run: |
           pip3 install beautifulsoup4 lxml
-          sudo apt-get update && sudo apt-get install setools lzip qemu-utils wine winetricks
+          sudo apt-get update && sudo apt-get install setools lzip qemu-utils wine winetricks p7zip-full
           wget -qO- "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/archive/$GITHUB_REF.tar.gz" | sudo tar --wildcards -zxvf- -C ~ --strip-component=2 '*/wine/*'
           winetricks msxml6
       - name: Download WSA
