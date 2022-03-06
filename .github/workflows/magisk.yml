@@ -635,9 +635,7 @@ jobs:
           \$null = \$Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown')
           EOF
           shopt -s extglob
-          cd ${{ matrix.arch }}
-          rm -- !(system.img|vendor.img)
-          cd ..
+          sudo rm -rf -- ${{ matrix.arch }}/!(system.img|vendor.img)
       - name: Generate artifact name
         run: |
           variant="${{ github.event.inputs.gapps_variant }}"
