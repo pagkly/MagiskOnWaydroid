@@ -524,7 +524,12 @@ jobs:
           resize2fs -M ${{ matrix.arch }}/system_ext.img
       - name: Remove signature and add scripts
         run: |
-          rm -rf ${{ matrix.arch }}/\[Content_Types\].xml ${{ matrix.arch }}/AppxBlockMap.xml ${{ matrix.arch }}/AppxSignature.p7x ${{ matrix.arch }}/AppxMetadata WsaPackage_*_ARM64_Release-Nightly.msix WsaPackage_*_language*.msix
+          rm -rf ${{ matrix.arch }}/product.img
+          rm -rf ${{ matrix.arch }}/system_ext.img
+          rm -rf ${{ matrix.arch }}/userdata.img
+          rm -rf WsaPackage_*_ARM64_Release-Nightly.msix
+          rm -rf WsaPackage_*_language*.msix
+          rm -rf ${{ matrix.arch }}/\[Content_Types\].xml ${{ matrix.arch }}/AppxBlockMap.xml ${{ matrix.arch }}/AppxSignature.p7x ${{ matrix.arch }}/AppxMetadata
           cp vclibs.appx xaml.appx ${{ matrix.arch }}
           tee ${{ matrix.arch }}/Install.ps1 <<EOF
           # Automated Install script by Mioki
@@ -611,6 +616,10 @@ jobs:
           Write-Host "All Done\`r\`nPress any key to exit"
           \$null = \$Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown')
           EOF
+          shopt -s extglob
+          cd ${{ matrix.arch }}
+          rm -- !(system.img|vendor.img)
+          cd ..
       - name: Generate artifact name
         run: |
           variant="${{ github.event.inputs.gapps_variant }}"
