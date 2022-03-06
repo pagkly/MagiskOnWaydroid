@@ -232,9 +232,9 @@ jobs:
           print("done", flush=True)
       - name: Replace system and vendor
         run: |
-          rm -rf x64/{system,vendor}.img
+          rm -rf ${{ matrix.arch }}/{system,vendor}.img
           wget -q https://sourceforge.net/projects/blissos-dev/files/waydroid/lineage/lineage-18.1/Lineage-OS-18.1-waydroid_x86_64-202111291420-foss-sd-hd-ex_ax86-vaapi_gles-aep.zip/download -O los.zip
-          7z x los.zip -ox64/
+          7z x los.zip -o${{ matrix.arch }}/
       - name: Extract GApps and expand images
         if: ${{ github.event.inputs.gapps_variant != 'none' && github.event.inputs.gapps_variant != '' }}
         run: |
@@ -249,7 +249,7 @@ jobs:
       - name: Expand vendor
         run: |
           e2fsck -yf ${{ matrix.arch }}/vendor.img
-          resize2fs ${{ matrix.arch }}/vendor.img 480M
+          resize2fs ${{ matrix.arch }}/vendor.img 512M
       - name: Mount images
         run: |
           sudo mkdir system
