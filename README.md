@@ -1,20 +1,10 @@
-# Magisk on WSA (with Google Apps)
+# Gapps + Magisk on Waydroid 11 (WIP)
 
 ## Features
-- Integrate Magisk and OpenGApps in a few clicks within minutes
-- No Linux environment required for integration
-- Keep each build up to date
-- Support both ARM64 and x64
+- Inspired from MagiskonWSA
 - Support all OpenGApps variants except for aroma (aroma does not support x86_64, please use super instead)
-- Fix external storage access of DocumentUI
 - Unattended installation
-- Automatically activates developers mode in Windows 11
-- Update to new version while preserving data with one-click script
-- Merged all language packs
-- Support managing start menu icons (manually installing [WSAHelper](https://github.com/LSPosed/WSAHelper/releases/latest) to use this feature)
 
-## Video Guide
-https://user-images.githubusercontent.com/5022927/145696886-e13ebfc1-ff25-4410-893e-d3e517af70ea.mp4
 
 ## Text Guide
 
@@ -94,3 +84,4 @@ https://user-images.githubusercontent.com/5022927/145696886-e13ebfc1-ff25-4410-8
 - [The Open GApps Project](https://opengapps.org): One of the most famous Google Apps packages solution
 - [WSA-Kernel-SU](https://github.com/LSPosed/WSA-Kernel-SU) and [kernel-assisted-superuser](https://git.zx2c4.com/kernel-assisted-superuser/): The kernel `su` for debugging Magisk Integration
 - [WSAGAScript](https://github.com/ADeltaX/WSAGAScript): The first GApps integration script for WSA
+- [MagiskonWSA](https://github.com/LSPosed/MagiskonWSA)
