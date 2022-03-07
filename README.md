@@ -9,7 +9,6 @@
 
 ## Text Guide
 
-1. Star (if you like) and fork this repo
 1. Go to the **Action** tab in your forked repo
     ![Action Tab](https://docs.github.com/assets/images/help/repository/actions-tab.png)
 1. In the left sidebar, click the **Build WSA** workflow.
@@ -30,7 +29,7 @@
    The zip you downloaded is compressed and Github is showing the uncompressed size.
 - How can I update WSA to new version?
 
-    Rerun the Github action, download the new artifact, replace the content of your previous installation and rerun `Install.ps1`. Don't worry, your data will be preserved.
+    Rerun the Github action, download the new artifact, replace the content of your previous installation.
 - How can I update Magisk to new version?
 
     Do the same as updating WSA
