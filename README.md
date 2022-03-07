@@ -1,6 +1,6 @@
 # Gapps + Magisk on Waydroid 11 (WIP)
 
-**Zygisk not working yet**
+**Zygisk not yet working**
 ## Features
 - Inspired from [MagiskOnWSA](https://github.com/LSPosed/MagiskOnWSA)
 - Support all OpenGApps variants except for aroma (aroma does not support x86_64, please use super instead)
