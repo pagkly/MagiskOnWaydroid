@@ -1,9 +1,8 @@
 # Gapps + Magisk on Waydroid 11 (WIP)
 
 ## Features
-- Inspired from MagiskonWSA
+- Inspired from [MagiskOnWSA](https://github.com/LSPosed/MagiskOnWSA)
 - Support all OpenGApps variants except for aroma (aroma does not support x86_64, please use super instead)
-- Unattended installation
 
 
 ## Text Guide
@@ -21,48 +20,21 @@
     ![Download](https://docs.github.com/assets/images/help/repository/artifact-drop-down-updated.png)
 1. Unzip the artifact
     - The size shown in the webpage is uncompressed size and the zip you download will be compressed. So the size of the zip will be much less than the size shown in the webpage.
-1. Right-click `Install.ps1` and select `Run with PowerShell`
-    - If you previously have a MagiskOnWSA installation, it will automatically uninstall the previous while **preserving all userdata** and install the new one, so don't worry about your data.
-    - If you have an official WSA installation, you should uninstall it first. (In case you want to preserve your data, you can backup `%LOCALAPPDATA%\Packages\MicrosoftCorporationII.WindowsSubsystemForAndroid_8wekyb3d8bbwe\LocalCache\userdata.vhdx` before uninstallation and restore it after installation.) (If you want to restore the icons to start menu, please install and use [WSAHelper](https://github.com/LSPosed/WSAHelper/releases/latest).)
-    - If the popup windows disappear **without asking administrative permission** and WSA is not installed successfully, you should manually run `Install.ps1` as administrator:
-        1. Press `Win+x` and select `Windows Terminal (Admin)`
-        2. Input `cd "{X:\path\to\your\extracted\folder}"` and press `enter`, and remember to replace `{X:\path\to\your\extracted\folder}` including the `{}`, for example `cd "D:\wsa"`
-        3. Input `PowerShell.exe -ExecutionPolicy Bypass -File .\Install.ps1` and press `enter`
-        4. The script will run and WSA will be installed
-        5. If this workaround does not work, your PC is not supported for WSA
-1. Magisk/Play store will be launched. Enjoy by installing LSPosed-zygisk with zygisk enabled or Riru and LSPosed-riru
 
 ## FAQ
-- Can I delete the unzipped folder?
 
-    No.
 - Why the size of the zip does not match the one shown?
 
    The zip you downloaded is compressed and Github is showing the uncompressed size.
 - How can I update WSA to new version?
 
     Rerun the Github action, download the new artifact, replace the content of your previous installation and rerun `Install.ps1`. Don't worry, your data will be preserved.
-- How can I get the logcat from WSA?
-
-    `%LOCALAPPDATA%\Packages\MicrosoftCorporationII.WindowsSubsystemForAndroid_8wekyb3d8bbwe\LocalState\diagnostics\logcat`
 - How can I update Magisk to new version?
 
     Do the same as updating WSA
-- VPN is not working?
-
-    Tell Microsoft to fix it. We cannot fix it easily.
 - How to pass safetynet?
 
     Like all the other emulators, no way.
-- Virtualization is not enabled?
-
-    `Install.ps1` helps you enable it if not enabled. After rebooting, rerun `Install.ps1` to install WSA. If it's still not working, you have to enable virtualization in BIOS. That's a long story so ask Google for help.
-- How to remount system as read-write?
-
-    No way in WSA since it's mounted as read-only by Hyper-V. You can modify system by making a Magisk module. Or directly modify system.img. Ask Google for help.
-- I cannot `adb connect localhost:58526`
-
-    Make sure developer mode is enabled. If the issue persists, check the IP address of WSA in the setting page and try `adb connect ip:5555`.
 - Magisk online module list is empty?
 
     Magisk actively remove online module repository. You can install module locally or by `adb push module.zip /data/local/tmp` and `adb shell su -c magisk --install-module /data/local/tmp/module.zip`.
