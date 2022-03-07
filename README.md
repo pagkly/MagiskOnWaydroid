@@ -1,6 +1,6 @@
-# Gapps + Magisk on Waydroid 11 (WIP, No ETA)
+# Gapps + Magisk on Waydroid 11 (WIP)
 
-**Zygisk not yet working**
+**Zygisk not yet working (No ETA)**
 
 ## Features
 - Forked [MagiskOnWSA](https://github.com/LSPosed/MagiskOnWSA) and modified to install Magisk and Gapps in Waydroid 11 system.img.
