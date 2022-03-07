@@ -1,4 +1,4 @@
-# Gapps + Magisk on Waydroid 11 (WIP)
+# Gapps + Magisk on Waydroid 11 (WIP, No ETA)
 
 **Zygisk not yet working**
 
