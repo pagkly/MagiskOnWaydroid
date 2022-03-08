@@ -21,6 +21,11 @@
     ![Download](https://docs.github.com/assets/images/help/repository/artifact-drop-down-updated.png)
 1. Unzip the artifact
     - The size shown in the webpage is uncompressed size and the zip you download will be compressed. So the size of the zip will be much less than the size shown in the webpage.
+1. Copy system.img and vendor.img to /usr/share/waydroid-extras/images
+    - `sudo waydroid init -f`
+    - `sudo systemctl start waydroid-container.service
+    - `waydroid session start`
+    - Open new terminal and type `waydroid show-full-ui`
 
 ## FAQ
 
@@ -39,7 +44,9 @@
 - Magisk online module list is empty?
 
     Install manually by 
+   
     `adb push module.zip /data/local/tmp`
+    
     `adb shell su -c magisk --install-module /data/local/tmp/module.zip`.
 - Can I use Magisk 23.0 stable or lower version?
 
