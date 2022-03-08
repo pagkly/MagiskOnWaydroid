@@ -24,10 +24,10 @@
 1. Copy system.img and vendor.img to /usr/share/waydroid-extras/images
     - `# Initialize new images
     
-    sudo waydroid init -f
+    sudo waydroid init -f 
     
-    # Restart waydroid lxc container
-    
+    \# Restart waydroid lxc container
+   
     sudo systemctl start waydroid-container.service
     
     waydroid session start`
