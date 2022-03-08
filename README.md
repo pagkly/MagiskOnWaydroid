@@ -1,9 +1,9 @@
-# Gapps + Magisk on Waydroid 11 (WIP)
+# Gapps + Magisk on Waydroid BlissOS/LineageOS 18.1 Dev Image (Android 11)
 
 **Zygisk not yet working (No ETA)**
 
 ## Features
-- Forked [MagiskOnWSA](https://github.com/LSPosed/MagiskOnWSA) and modified to install Magisk and Gapps in Waydroid 11 system.img.
+- Forked [MagiskOnWSA](https://github.com/LSPosed/MagiskOnWSA) and modified to install Magisk and Pico OpenGapps in Waydroid 11 system.img.
 - Support all OpenGApps variants except for aroma (aroma does not support x86_64, please use super instead)
 
 
@@ -27,24 +27,24 @@
 - Why the size of the zip does not match the one shown?
 
    The zip you downloaded is compressed and Github is showing the uncompressed size.
-- How can I update WSA to new version?
+- How can I update System.img to new version?
 
     Rerun the Github action, download the new artifact, replace the content of your previous installation.
 - How can I update Magisk to new version?
 
-    Do the same as updating WSA
+    Do the same as updating System.img
 - How to pass safetynet?
 
     Like all the other emulators, no way.
 - Magisk online module list is empty?
 
-    Magisk actively remove online module repository. You can install module locally or by `adb push module.zip /data/local/tmp` and `adb shell su -c magisk --install-module /data/local/tmp/module.zip`.
+    Install manually by 
+    `adb push module.zip /data/local/tmp`
+    `adb shell su -c magisk --install-module /data/local/tmp/module.zip`.
 - Can I use Magisk 23.0 stable or lower version?
 
     No. Magisk has bugs preventing itself running on WSA. Magisk 24+ has fixed them. So you must use Magisk 24 or higher version.
-- How can I get rid of Magisk?
 
-    Choose `none` as root solution.
 - Github Action script is updated, how can I synchronize it?
 
     1. In your fork repository, click `fetch upstream`
@@ -53,8 +53,8 @@
         ![merge](https://docs.github.com/assets/cb-128489/images/help/repository/fetch-and-merge-button.png)
 
 ## Credits
-- [Magisk](https://github.com/topjohnwu/Magisk): The most famous root solution on Android
-- [The Open GApps Project](https://opengapps.org): One of the most famous Google Apps packages solution
-- [WSA-Kernel-SU](https://github.com/LSPosed/WSA-Kernel-SU) and [kernel-assisted-superuser](https://git.zx2c4.com/kernel-assisted-superuser/): The kernel `su` for debugging Magisk Integration
-- [WSAGAScript](https://github.com/ADeltaX/WSAGAScript): The first GApps integration script for WSA
+- [Magisk](https://github.com/topjohnwu/Magisk)
+- [The Open GApps Project](https://opengapps.org)
+- [WSA-Kernel-SU](https://github.com/LSPosed/WSA-Kernel-SU) and [kernel-assisted-superuser](https://git.zx2c4.com/kernel-assisted-superuser/)
+- [WSAGAScript](https://github.com/ADeltaX/WSAGAScript)
 - [MagiskonWSA](https://github.com/LSPosed/MagiskonWSA)
