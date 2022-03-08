@@ -22,9 +22,16 @@
 1. Unzip the artifact
     - The size shown in the webpage is uncompressed size and the zip you download will be compressed. So the size of the zip will be much less than the size shown in the webpage.
 1. Copy system.img and vendor.img to /usr/share/waydroid-extras/images
-    - `sudo waydroid init -f`
-    - `sudo systemctl start waydroid-container.service
-    - `waydroid session start`
+    - `# Initialize new images
+    
+    sudo waydroid init -f
+    
+    # Restart waydroid lxc container
+    
+    sudo systemctl start waydroid-container.service
+    
+    waydroid session start`
+    
     - Open new terminal and type `waydroid show-full-ui`
 
 ## FAQ
