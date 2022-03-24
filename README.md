@@ -23,15 +23,8 @@ More in [Waydroid Telegram](https://t.me/WayDroid)
 2. **Restart waydroid container twice after additional setup in Magisk.**
    
    First restart usually have a bug where the ethernet connection would fail to connect to the internet. Second restart should fix them.
-
-    ```shell
-    sudo systemctl restart waydroid-container.service
-    waydroid start session #(wait until successfully booted)
-    waydroid stop session
-    sudo systemctl restart waydroid-container.service
-    waydroid start session #(wait until successfully booted)
-    waydroid show-full-ui
-    ```
+   
+   See # Installation Guide
     
 3. Magisk Canary not guaranteed to work. 
    
@@ -73,6 +66,8 @@ More in [Waydroid Telegram](https://t.me/WayDroid)
     ```
 1. After additional setup in magisk, reboot and restart container twice (refer to Bugs as to why)
     ```shell
+    waydroid stop session
+    
     # First container restart
     sudo systemctl restart waydroid-container.service
     waydroid start session #(wait until successfully booted)
