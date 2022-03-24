@@ -1,5 +1,6 @@
 # Gapps + Magisk on Waydroid 
 [BlissOS/LineageOS 18.1 Dev Image (Android 11)](https://sourceforge.net/projects/blissos-dev/files/waydroid/lineage/lineage-18.1/)
+
 Tested in ArchLinux, Fedora.
 
 ## Bugs
