@@ -84,3 +84,5 @@
 - [WSA-Kernel-SU](https://github.com/LSPosed/WSA-Kernel-SU) and [kernel-assisted-superuser](https://git.zx2c4.com/kernel-assisted-superuser/)
 - [WSAGAScript](https://github.com/ADeltaX/WSAGAScript)
 - [MagiskonWSA](https://github.com/LSPosed/MagiskonWSA)
+- [Project Kokoro](https://github.com/supremegamers/kokoro)
+- [MagiskOnEmulator](https://github.com/shakalaca/MagiskOnEmulator)
