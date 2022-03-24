@@ -17,9 +17,12 @@ More in [Waydroid Telegram](https://t.me/WayDroid)
    
     Currently, this script is using MagiskonWSA method in patching initrc so that it would load magisk su binaries that by the time the UI is loaded, Magisk root manager is ready to use but is too late to patch the zygote with zygisk. There might be a way to load su binaries as kernel module when lxc session is starting. Anybody who is well-versed in lxc can contact me/create issue to explain to me how to make it works.
     
-    Modules requiring zygote/zygisk like [Riru](https://github.com/RikkaApps/Riru), [LSPosed](https://github.com/LSPosed/LSPosed) (pre-zygisk) or Shamiko (module to hide magisk root utilizing zygisk) wont work. 
+    Modules requiring zygote/zygisk like [Riru](https://github.com/RikkaApps/Riru), [LSPosed](https://github.com/LSPosed/LSPosed) (pre-zygisk) or Shamiko (module to hide magisk root utilizing zygisk) wont work for now. 
     
-    Example of modules working: Busybox NDK, Magisk Hide Prop, Detach (detach app from play store)
+    Example of modules working: 
+    - [Busybox NDK](https://github.com/Magisk-Modules-Repo/busybox-ndk)
+    - [Magisk Hide Prop](https://github.com/Magisk-Modules-Repo/MagiskHidePropsConf)
+    - [Detach](https://github.com/Magisk-Modules-Repo/Detach) (detach app from play store)
     
 2. **Restart waydroid container twice after additional setup in Magisk.**
    
