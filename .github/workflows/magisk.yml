@@ -653,7 +653,7 @@ jobs:
           else
             name2="-GApps-${variant}"
           fi
-          echo "artifact_name=WSA${name1}${name2}_${{ env.WSA_VER }}_${{ matrix.arch }}_${{ env.WSA_REL }}" >> $GITHUB_ENV
+          echo "artifact_name=WD${name1}${name2}_${{ matrix.arch }}" >> $GITHUB_ENV
       - name: Upload Waydroid
         uses: actions/upload-artifact@v2
         with:
