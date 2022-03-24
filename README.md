@@ -5,7 +5,7 @@
     
     This means modules requiring zygote/zygisk like riru, lsposed (pre-zygisk) or shamiko (with zygisk) wont work. Example of modules working: Busybox NDK, Magisk Hide Prop, Detach (detach app from play store)
     
-3. Restart waydroid container twice after additional setup in Magisk. First restart usually have a bug where the ethernet connection would fail to connect to the internet. Second restart should fix them.
+2. Restart waydroid container twice after additional setup in Magisk. First restart usually have a bug where the ethernet connection would fail to connect to the internet. Second restart should fix them.
 
     ``` 
     sudo systemctl restart waydroid-container.service
@@ -15,6 +15,9 @@
     waydroid start session #(wait until successfully booted)
     waydroid show-full-ui
     ```
+    
+3. Magisk Canary not guaranteed to work. The latest that works is v24.1 up to 24102.
+   I might add several links of magisk version so that new versions can be tested from workflow. However, default would still be v24.1.
 
 ## Features
 - Forked [MagiskOnWSA](https://github.com/LSPosed/MagiskOnWSA) and modified to install Magisk and Pico OpenGapps in Waydroid 11 system.img.
