@@ -1,6 +1,6 @@
 # Gapps + Magisk on Waydroid 
 
-If you want to skip fork and straight to downloading the modified image, download [latest build with pico OpenGapps and Magisk v24.1](https://github.com/pagkly/MagiskOnWaydroid/suites/5780425514/artifacts/192678597) and follow [installation](#installation-guide) to init modified images.
+**If you want to skip fork and straight to downloading the modified image, download [latest build with pico OpenGapps and Magisk v24.1](https://github.com/pagkly/MagiskOnWaydroid/suites/5780425514/artifacts/192678597) and follow [installation](#installation-guide) to init modified images.**
 
 Forked [MagiskOnWSA](https://github.com/LSPosed/MagiskOnWSA) and modified to install Magisk and OpenGapps (pico) replacing FOSS apps in [BlissOS/LineageOS 18.1 dev image (Android 11)](https://sourceforge.net/projects/blissos-dev/files/waydroid/lineage/lineage-18.1/)
 
