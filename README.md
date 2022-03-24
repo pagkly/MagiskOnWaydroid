@@ -30,11 +30,11 @@ More in [Waydroid Telegram](https://t.me/WayDroid)
    
    See [Installation Guide](#installation-guide)
     
-3. Magisk Canary not guaranteed to work. 
+3. Not all Magisk (> 24102 builds) guaranteed to work. 
    
    The latest that works is v24.1 up to 24102.
    This is due to a recent change in how Magisk load the binaries during booting somewhere in commit between build v24102 to v24103 and present in v24.2, 2420x builds.
-   I might add several links of magisk version so that new version from 2430x onwards can be tested. However, default would still be v24.1.
+   I might add several links of magisk version to choose from in workflow so that new version from 2430x onwards can be tested. However, default would still be v24.1 and thus, do not update magisk apk.
 
 
 ## Installation Guide
