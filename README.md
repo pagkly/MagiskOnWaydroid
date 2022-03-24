@@ -64,7 +64,7 @@ More in [Waydroid Telegram](https://t.me/WayDroid)
     # Start Waydroid UI
     waydroid show-full-ui
     ```
-1. After additional setup in magisk, reboot and restart container twice (refer to Bugs as to why)
+1. After additional setup in magisk, reboot and restart container twice (refer to [Bugs](#bugs) as to why)
     ```shell
     waydroid stop session
     
