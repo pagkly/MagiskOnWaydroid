@@ -3,7 +3,7 @@
 ## Bugs
 1. **Zygisk not yet working (No ETA)**
     
-    This means modules requiring zygote/zygisk like riru, lsposed (pre-zygisk) or shamiko (with zygisk) wont work.
+    This means modules requiring zygote/zygisk like riru, lsposed (pre-zygisk) or shamiko (with zygisk) wont work. Example of modules working: Busybox NDK, Magisk Hide Prop, Detach (detach app from play store)
     
 3. Restart waydroid container twice after additional setup in Magisk. First restart usually have a bug where the ethernet connection would fail to connect to the internet. Second restart should fix them.
 
