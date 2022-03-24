@@ -83,6 +83,7 @@ More in [Waydroid Telegram](https://t.me/WayDroid)
     waydroid show-full-ui
     ```
     
+    
 ## Additional FAQ
 
 - Why the size of the zip does not match the one shown?
