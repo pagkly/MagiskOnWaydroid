@@ -644,14 +644,14 @@ jobs:
           if [[ "$root" = "none" ]]; then
             name1=""
           elif [[ "$root" = "" ]]; then
-            name1="-with-magisk"
+            name1="-magisk"
           else
-            name1="-with-${root}"
+            name1="-${root}"
           fi
           if [[ "$variant" = "none" || "$variant" = "" ]]; then
             name2="-NoGApps"
           else
-            name2="-GApps-${variant}"
+            name2="-${variant}"
           fi
           echo "artifact_name=WD${name1}${name2}_${{ matrix.arch }}" >> $GITHUB_ENV
       - name: Upload Waydroid
