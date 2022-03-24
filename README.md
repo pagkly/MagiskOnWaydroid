@@ -1,11 +1,12 @@
 # Gapps + Magisk on Waydroid 
 
-
-Tested in ArchLinux, Fedora.
+If you want to skip fork and straight to downloading the modified image, download [latest build](https://github.com/pagkly/MagiskOnWaydroid/suites/5780425514/artifacts/192678597).
 
 Forked [MagiskOnWSA](https://github.com/LSPosed/MagiskOnWSA) and modified to install Magisk and OpenGapps (pico) replacing FOSS apps in [BlissOS/LineageOS 18.1 dev image (Android 11)](https://sourceforge.net/projects/blissos-dev/files/waydroid/lineage/lineage-18.1/)
 
 Most OpenGApps variants works except for aroma (aroma does not support x86_64, please use super instead)
+
+Tested in ArchLinux, Fedora.
 
 More in [Waydroid Telegram](https://t.me/WayDroid)
 
