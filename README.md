@@ -13,7 +13,7 @@ More in [Waydroid Telegram](https://t.me/WayDroid)
 ## Bugs
 1. **Zygisk not yet working (No ETA)**
 
-    In [LSPosed's MagiskonWSA](https://github.com/LSPosed/MagiskonWSA), there is a [patched kernel with su binaries](https://github.com/LSPosed/WSA-Kernel-SU) available before even initrc started so that zygote process can be patched with zygisk capable zygote. However Waydroid uses lxc containers utilizing linux host kernel without patched su binaries.
+    In [LSPosed's MagiskonWSA](https://github.com/LSPosed/MagiskonWSA), there is a [patched kernel with su binaries](https://github.com/LSPosed/WSA-Kernel-SU) before initrc started so that zygote process can be patched with zygisk capable zygote. However Waydroid uses lxc containers utilizing linux host kernel without patched su binaries.
    
     Currently, this script is using MagiskonWSA method in patching initrc so that it would load magisk su binaries that by the time the UI is loaded, Magisk root manager is ready to use but is too late to patch the zygote with zygisk. There might be a way to load su binaries as kernel module when lxc session is starting. Anybody who is well-versed in lxc can contact me/create issue to explain to me how to make it works.
     
