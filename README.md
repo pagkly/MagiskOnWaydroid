@@ -14,7 +14,7 @@
    
    First restart usually have a bug where the ethernet connection would fail to connect to the internet. Second restart should fix them.
 
-    ``` 
+    ```shell
     sudo systemctl restart waydroid-container.service
     waydroid start session #(wait until successfully booted)
     waydroid stop session
@@ -27,10 +27,10 @@
    
    The latest that works is v24.1 up to 24102.
    This is due to a recent change of how Magisk load the binaries when booting somewhere in commit between build v24102 to v24103 and present in v24.2, 2420x builds.
-   I might add several links of magisk version so that new version from 2430x can be tested. However, default would still be v24.1.
+   I might add several links of magisk version so that new version from 2430x onwards can be tested. However, default would still be v24.1.
 
 ## Features
-- Forked [MagiskOnWSA](https://github.com/LSPosed/MagiskOnWSA) and modified to install Magisk and Pico OpenGapps in Waydroid 11 system.img.
+- Forked [MagiskOnWSA](https://github.com/LSPosed/MagiskOnWSA) and modified to install Magisk and Pico OpenGapps replacing FOSS apps in [Waydroid 11 system.img]((https://sourceforge.net/projects/blissos-dev/files/waydroid/lineage/lineage-18.1/))
 - Support all OpenGApps variants except for aroma (aroma does not support x86_64, please use super instead)
 
 
@@ -48,7 +48,7 @@
     ![Download](https://docs.github.com/assets/images/help/repository/artifact-drop-down-updated.png)
 1. Unzip the artifact
     - The size shown in the webpage is uncompressed size and the zip you download will be compressed. So the size of the zip will be much less than the size shown in the webpage.
-1. Copy system.img and vendor.img to /usr/share/waydroid-extras/images
+1. Copy system.img and vendor.img to /usr/share/waydroid-extras/images and init the new img.
     ```shell
     # Create dir if not exists, copy files
     sudo mkdir -p /user/share/waydroid-extras/images
@@ -63,18 +63,19 @@
     waydroid show-full-ui
     ```
 1. After additional setup in magisk, reboot and restart container twice (refer to Bugs as to why)
-    ```
+    ```shell
     # First container restart
     sudo systemctl restart waydroid-container.service
     waydroid start session #(wait until successfully booted)
     waydroid stop session
+    
     # Second container restart
     sudo systemctl restart waydroid-container.service
     waydroid start session #(wait until successfully booted)
     waydroid show-full-ui
     ```
     
-## FAQ
+## Additional FAQ
 
 - Why the size of the zip does not match the one shown?
 
