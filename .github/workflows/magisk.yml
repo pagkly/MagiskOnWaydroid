@@ -18,9 +18,12 @@ on:
       magisk_apk:
         description: "Magisk version"
         required: true
-        default: "stable"
+        default: "24.1"
         type: choice
         options:
+        - 24.1
+        - 24.2
+        - 24.3
         - stable
         - beta
         - canary
@@ -188,13 +191,19 @@ jobs:
           import requests
 
           magisk_apk = """${{ github.event.inputs.magisk_apk }}"""
-
+          
           if not magisk_apk:
-              magisk_apk = "stable"
+              magisk_apk = "https://github.com/topjohnwu/Magisk/releases/download/v24.1/Magisk-v24.1.apk"
+          if magisk_apk == "24.1":
+              magisk_apk = "https://github.com/topjohnwu/Magisk/releases/download/v24.1/Magisk-v24.1.apk"
+          if magisk_apk == "24.2":
+              magisk_apk = "https://github.com/topjohnwu/Magisk/releases/download/v24.2/Magisk-v24.2.apk"
+          if magisk_apk == "24.3":
+              magisk_apk = "https://github.com/topjohnwu/Magisk/releases/download/v24.3/Magisk-v24.3.apk"
           if magisk_apk == "stable" or magisk_apk == "beta" or magisk_apk == "canary":
               magisk_apk = json.loads(requests.get(f"https://github.com/topjohnwu/magisk-files/raw/master/{magisk_apk}.json").content)['magisk']['link']
           
-          magisk_apk = "https://github.com/topjohnwu/Magisk/releases/download/v24.1/Magisk-v24.1.apk"
+
           out_file = "magisk.zip"
 
           arch = "${{ matrix.arch }}"
