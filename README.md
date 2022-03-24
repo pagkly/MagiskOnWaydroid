@@ -24,7 +24,7 @@ More in [Waydroid Telegram](https://t.me/WayDroid)
    
    First restart usually have a bug where the ethernet connection would fail to connect to the internet. Second restart should fix them.
    
-   See # Installation Guide
+   See [Installation Guide](#installation-guide)
     
 3. Magisk Canary not guaranteed to work. 
    
