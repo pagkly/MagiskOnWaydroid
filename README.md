@@ -93,9 +93,10 @@
 
     Install manually by 
    
-    `adb push module.zip /data/local/tmp`
-    
-    `adb shell su -c magisk --install-module /data/local/tmp/module.zip`.
+    ```shell
+    adb push module.zip /data/local/tmp
+    adb shell su -c magisk --install-module /data/local/tmp/module.zip
+    ```
 - Can I use Magisk 23.0 stable or lower version?
 
     No. Magisk has bugs preventing itself running on WSA. Magisk 24+ has fixed them. So you must use Magisk 24 or higher version.
