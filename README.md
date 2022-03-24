@@ -7,7 +7,9 @@ BlissOS/LineageOS 18.1 Dev Image (Android 11)
     In [LSPosed's MagiskonWSA](https://github.com/LSPosed/MagiskonWSA), there is a patched kernel with su binaries so that zygote process can be patched with zygisk capable zygote. This means su is available before even initrc started. However Waydroid uses lxc containers utilizing linux host kernel without patched su binaries. Currently, this script is using MagiskonWSA method in patching initrc so that it would load magisk su binaries so that by the time the UI is loaded, Magisk root manager is ready to use. There might be a way to load su binaries as kernel module when lxc is starting. Anybody who is well-versed in lxc can contact me/create issue to explain to me how to make it works.
     Modules requiring zygote/zygisk like [Riru](https://github.com/RikkaApps/Riru), [LSPosed](https://github.com/LSPosed/LSPosed) (pre-zygisk) or Shamiko (module to hide magisk root utilizing zygisk) wont work. Example of modules working: Busybox NDK, Magisk Hide Prop, Detach (detach app from play store)
     
-2. Restart waydroid container twice after additional setup in Magisk. First restart usually have a bug where the ethernet connection would fail to connect to the internet. Second restart should fix them.
+2. Restart waydroid container twice after additional setup in Magisk. 
+   
+   First restart usually have a bug where the ethernet connection would fail to connect to the internet. Second restart should fix them.
 
     ``` 
     sudo systemctl restart waydroid-container.service
@@ -18,9 +20,11 @@ BlissOS/LineageOS 18.1 Dev Image (Android 11)
     waydroid show-full-ui
     ```
     
-3. Magisk Canary not guaranteed to work. The latest that works is v24.1 up to 24102.
-   This is due to a recent change of how Magisk load the binaries when booting.
-   I might add several links of magisk version so that new versions can be tested from workflow. However, default would still be v24.1.
+3. Magisk Canary not guaranteed to work. 
+   
+   The latest that works is v24.1 up to 24102.
+   This is due to a recent change of how Magisk load the binaries when booting somewhere in commit between build v24102 to v24103 and present in v24.2, 2420x builds.
+   I might add several links of magisk version so that new version from 2430x can be tested. However, default would still be v24.1.
 
 ## Features
 - Forked [MagiskOnWSA](https://github.com/LSPosed/MagiskOnWSA) and modified to install Magisk and Pico OpenGapps in Waydroid 11 system.img.
