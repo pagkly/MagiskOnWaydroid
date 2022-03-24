@@ -3,6 +3,7 @@ BlissOS/LineageOS 18.1 Dev Image (Android 11)
 
 ## Bugs
 1. **Zygisk not yet working (No ETA)**
+
     In [LSPosed's MagiskonWSA](https://github.com/LSPosed/MagiskonWSA), there is a patched kernel with su binaries so that zygote process can be patched with zygisk capable zygote. However Waydroid uses lxc containers which uses linux kernel. Currently, this script is using MagiskonWSA method patching the initrc so that it would load magisk binaries and by the time the UI is loaded, Magisk is ready to use. There might be a way to load magisk as kernel module when lxc is starting. Anybody who is well-versed in lxc can contact me/create issue to explain to me how to make it working.
     This means modules requiring zygote/zygisk like [Riru](https://github.com/RikkaApps/Riru), [lsposed](https://github.com/LSPosed/LSPosed) (pre-zygisk) or Shamiko (module to hide magisk root utilizing zygisk) wont work. Example of modules working: Busybox NDK, Magisk Hide Prop, Detach (detach app from play store)
     
