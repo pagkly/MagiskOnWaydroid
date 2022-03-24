@@ -7,7 +7,7 @@ BlissOS/LineageOS 18.1 Dev Image (Android 11)
     In [LSPosed's MagiskonWSA](https://github.com/LSPosed/MagiskonWSA), there is a patched kernel with su binaries so that zygote process can be patched with zygisk capable zygote. This means su is available before even initrc started. However Waydroid uses lxc containers utilizing linux host kernel without patched su binaries. Currently, this script is using MagiskonWSA method in patching initrc so that it would load magisk su binaries so that by the time the UI is loaded, Magisk root manager is ready to use. There might be a way to load su binaries as kernel module when lxc is starting. Anybody who is well-versed in lxc can contact me/create issue to explain to me how to make it works.
     Modules requiring zygote/zygisk like [Riru](https://github.com/RikkaApps/Riru), [LSPosed](https://github.com/LSPosed/LSPosed) (pre-zygisk) or Shamiko (module to hide magisk root utilizing zygisk) wont work. Example of modules working: Busybox NDK, Magisk Hide Prop, Detach (detach app from play store)
     
-2. Restart waydroid container twice after additional setup in Magisk. 
+2. **Restart waydroid container twice after additional setup in Magisk.**
    
    First restart usually have a bug where the ethernet connection would fail to connect to the internet. Second restart should fix them.
 
@@ -47,15 +47,30 @@ BlissOS/LineageOS 18.1 Dev Image (Android 11)
     - The size shown in the webpage is uncompressed size and the zip you download will be compressed. So the size of the zip will be much less than the size shown in the webpage.
 1. Copy system.img and vendor.img to /usr/share/waydroid-extras/images
     ```shell
+    # Create dir if not exists, copy files
+    sudo mkdir -p /user/share/waydroid-extras/images
+    sudo cp system.img /user/share/waydroid-extras/images/
+    sudo cp vendor.img /user/share/waydroid-extras/images/
     # Initialize new images
     sudo waydroid init -f
     # Restart waydroid lxc container
     sudo systemctl start waydroid-container.service
-    waydroid session start
+    waydroid session start &
+    # Start Waydroid UI
+    waydroid show-full-ui
     ```
-
-    - Open new terminal and type `waydroid show-full-ui`
-
+1. After additional setup in magisk, reboot and restart container twice (refer to Bugs as to why)
+    ```
+    # First container restart
+    sudo systemctl restart waydroid-container.service
+    waydroid start session #(wait until successfully booted)
+    waydroid stop session
+    # Second container restart
+    sudo systemctl restart waydroid-container.service
+    waydroid start session #(wait until successfully booted)
+    waydroid show-full-ui
+    ```
+    
 ## FAQ
 
 - Why the size of the zip does not match the one shown?
