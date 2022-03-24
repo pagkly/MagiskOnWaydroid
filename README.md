@@ -79,6 +79,7 @@
         ![merge](https://docs.github.com/assets/cb-128489/images/help/repository/fetch-and-merge-button.png)
 
 ## Credits
+- [Waydroid](https://github.com/waydroid/waydroid)
 - [Magisk](https://github.com/topjohnwu/Magisk)
 - [The Open GApps Project](https://opengapps.org)
 - [WSA-Kernel-SU](https://github.com/LSPosed/WSA-Kernel-SU) and [kernel-assisted-superuser](https://git.zx2c4.com/kernel-assisted-superuser/)
