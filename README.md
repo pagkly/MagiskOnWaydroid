@@ -3,6 +3,11 @@
 
 Tested in ArchLinux, Fedora.
 
+Forked [MagiskOnWSA](https://github.com/LSPosed/MagiskOnWSA) and modified to install Magisk and Pico OpenGapps replacing FOSS apps in [Waydroid 11 system.img]((https://sourceforge.net/projects/blissos-dev/files/waydroid/lineage/lineage-18.1/))
+
+Support all OpenGApps variants except for aroma (aroma does not support x86_64, please use super instead)
+
+
 ## Bugs
 1. **Zygisk not yet working (No ETA)**
 
@@ -31,12 +36,8 @@ Tested in ArchLinux, Fedora.
    This is due to a recent change of how Magisk load the binaries when booting somewhere in commit between build v24102 to v24103 and present in v24.2, 2420x builds.
    I might add several links of magisk version so that new version from 2430x onwards can be tested. However, default would still be v24.1.
 
-## Features
-- Forked [MagiskOnWSA](https://github.com/LSPosed/MagiskOnWSA) and modified to install Magisk and Pico OpenGapps replacing FOSS apps in [Waydroid 11 system.img]((https://sourceforge.net/projects/blissos-dev/files/waydroid/lineage/lineage-18.1/))
-- Support all OpenGApps variants except for aroma (aroma does not support x86_64, please use super instead)
 
-
-## Text Guide
+## Installation Guide
 
 1. Go to the **Action** tab in your forked repo
     ![Action Tab](https://docs.github.com/assets/images/help/repository/actions-tab.png)
