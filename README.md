@@ -7,6 +7,7 @@ Forked [MagiskOnWSA](https://github.com/LSPosed/MagiskOnWSA) and modified to ins
 
 Support all OpenGApps variants except for aroma (aroma does not support x86_64, please use super instead)
 
+[Waydroid Telegram](https://t.me/WayDroid)
 
 ## Bugs
 1. **Zygisk not yet working (No ETA)**
@@ -38,6 +39,9 @@ Support all OpenGApps variants except for aroma (aroma does not support x86_64, 
 
 
 ## Installation Guide
+1. Install waydroid on your Linux Distro.
+    
+   - e.g. In Arch Linux with AUR + yay ```yay -S waydroid-image-dev```
 
 1. Go to the **Action** tab in your forked repo
     ![Action Tab](https://docs.github.com/assets/images/help/repository/actions-tab.png)
