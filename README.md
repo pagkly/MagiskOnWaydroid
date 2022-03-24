@@ -13,13 +13,13 @@ More in [Waydroid Telegram](https://t.me/WayDroid)
 ## Bugs
 1. **Zygisk not yet working (No ETA)**
 
-    In [LSPosed's MagiskonWSA](https://github.com/LSPosed/MagiskonWSA), there is a [patched kernel with su binaries](https://github.com/LSPosed/WSA-Kernel-SU) before initrc started so that zygote process can be patched with zygisk capable zygote. However Waydroid uses lxc containers utilizing linux host kernel without patched su binaries.
-   
-    Currently, this script is using MagiskonWSA method in patching initrc so that it would load magisk su binaries that by the time the UI is loaded, Magisk root manager is ready to use but is too late to patch the zygote with zygisk. There might be a way to load su binaries as kernel module when lxc session is starting. Anybody who is well-versed in lxc can contact me/create issue to explain to me how to make it works.
+    Currently, this script is using MagiskonWSA method in patching initrc so that it would load magisk su binaries close to the end of initrc, before ui started. However zygote is usually loaded at the start of initrc, meaning it would be too late to replace zygote with zygisk zygote by the time su from magisk is loaded. 
+    In [LSPosed's MagiskonWSA](https://github.com/LSPosed/MagiskonWSA) implementation, there is a [patched kernel with su binaries](https://github.com/LSPosed/WSA-Kernel-SU). Waydroid, on the other hand, uses lxc containers utilizing linux host kernel without su binaries needed to patch zygote.
+    Though, there might be a way to load su binaries as kernel module when lxc session is starting. Anybody who is well-versed in lxc can contact me/create issue to explain to me how to make it works.
     
-    Modules requiring zygote/zygisk like [Riru](https://github.com/RikkaApps/Riru), [LSPosed](https://github.com/LSPosed/LSPosed) (pre-zygisk) or Shamiko (module to hide magisk root utilizing zygisk) wont work for now. 
+    Modules requiring zygote/zygisk like [Riru](https://github.com/RikkaApps/Riru), [LSPosed](https://github.com/LSPosed/LSPosed) (pre-zygisk) or Shamiko (module to hide magisk root utilizing zygisk) unfortunately wont work for now unless someone figure out a workaround.
     
-    Example of modules working: 
+    In the meantime, here is some examples of modules that work: 
     - [Busybox NDK](https://github.com/Magisk-Modules-Repo/busybox-ndk)
     - [Magisk Hide Prop](https://github.com/Magisk-Modules-Repo/MagiskHidePropsConf)
     - [Detach](https://github.com/Magisk-Modules-Repo/Detach) (detach app from play store)
@@ -40,7 +40,9 @@ More in [Waydroid Telegram](https://t.me/WayDroid)
 ## Installation Guide
 1. Install waydroid on your Linux Distro.
     
-   - e.g. In Arch Linux with AUR + yay ```yay -S waydroid-image-dev```
+   - e.g. In Arch Linux with AUR + yay 
+
+      ```yay -S waydroid-image-dev```
 
 1. Go to the **Action** tab in your forked repo
     ![Action Tab](https://docs.github.com/assets/images/help/repository/actions-tab.png)
