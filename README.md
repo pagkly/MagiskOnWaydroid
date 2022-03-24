@@ -1,6 +1,20 @@
 # Gapps + Magisk on Waydroid BlissOS/LineageOS 18.1 Dev Image (Android 11)
 
-**Zygisk not yet working (No ETA)**
+## Bugs
+1. **Zygisk not yet working (No ETA)**
+    
+    This means modules requiring zygote/zygisk like riru, lsposed (pre-zygisk) or shamiko (with zygisk) wont work.
+    
+3. Restart waydroid container twice after additional setup in Magisk. First restart usually have a bug where the ethernet connection would fail to connect to the internet. Second restart should fix them.
+
+    ``` 
+    sudo systemctl restart waydroid-container.service
+    waydroid start session #(wait until successfully booted)
+    waydroid stop session
+    sudo systemctl restart waydroid-container.service
+    waydroid start session #(wait until successfully booted)
+    waydroid show-full-ui
+    ```
 
 ## Features
 - Forked [MagiskOnWSA](https://github.com/LSPosed/MagiskOnWSA) and modified to install Magisk and Pico OpenGapps in Waydroid 11 system.img.
