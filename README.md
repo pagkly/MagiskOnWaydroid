@@ -31,7 +31,7 @@ More in [Waydroid Telegram](https://t.me/WayDroid)
     
     The latest that works is stable v24.1 up to canary 24102. This is due to a recent change in how Magisk load the binaries during booting somewhere in commit between build v24102 to v24103 and present in v24.2, 2420x builds. I might add several links of magisk version to choose from in workflow so that new version from 2430x onwards can be tested. If you run the workflow and install the img properly and magisk icon not shown when booting the first time, that means Magisk is not setup properly. 
     
-    This and the zygisk problem might be solved with su patched kernel as is the case in MagiskOnWSA which works fine with Magisk canary builds to this day despite the changes in commit.
+    This and the zygisk problem might be solved with su patched kernel as is the case in MagiskOnWSA which works fine with Magisk canary builds to this day despite the changes in commit mentioned above.
     
      For now, default would still be v24.1 and thus, do not update magisk apk.
 
