@@ -24,13 +24,13 @@ More in [Waydroid Telegram](https://t.me/WayDroid)
     - [Magisk Hide Prop](https://github.com/Magisk-Modules-Repo/MagiskHidePropsConf)
     - [Detach](https://github.com/Magisk-Modules-Repo/Detach) (detach app from play store)
 
-    **Not all Magisk (> 24102 builds) guaranteed to work. **
+   **Not all Magisk (> 24102 builds) guaranteed to work. **
     
     This problem is related to the su patched kernel implementation.
     The latest that works is stable v24.1 up to canary 24102.
     This is due to a recent change in how Magisk load the binaries during booting somewhere in commit between build v24102 to v24103 and present in v24.2, 2420x builds.
     I might add several links of magisk version to choose from in workflow so that new version from 2430x onwards can be tested. However, default would still be v24.1 and thus, do not update magisk apk.
-    
+
 2. **Restart waydroid container twice after additional setup in Magisk.**
    
    First restart usually have a bug where the ethernet connection would fail to connect to the internet. Second restart should fix them.
