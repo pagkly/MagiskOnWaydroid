@@ -42,7 +42,13 @@ More in [Waydroid Telegram](https://t.me/WayDroid)
     
    - e.g. In Arch Linux with AUR + yay 
 
-      ```yay -S waydroid-image-dev```
+      ```shell
+      # install one of the kernel that supports ashmem,binder
+      # sudo pacman -S linux-mainline-anbox #(5.17-rc)
+      # sudo pacman -S linux-zen #(currently 5.16)
+      sudo pacman -Syuu
+      yay -S waydroid-image-dev
+      ```
 
 1. Go to the **Action** tab in your forked repo
     ![Action Tab](https://docs.github.com/assets/images/help/repository/actions-tab.png)
