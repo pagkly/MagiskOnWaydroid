@@ -141,3 +141,6 @@ More in [Waydroid Telegram](https://t.me/WayDroid)
 - [MagiskOnEmulator](https://github.com/shakalaca/MagiskOnEmulator)
 - [MagiskOnEmu](https://github.com/HuskyDG/MagiskOnEmu)
 - [Project Kokoro](https://github.com/supremegamers/kokoro)
+
+## Notes
+- [Android in LXC](https://stgraber.org/2013/12/23/lxc-1-0-some-more-advanced-container-usage/)
