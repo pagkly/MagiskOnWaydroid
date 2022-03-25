@@ -24,7 +24,7 @@ More in [Waydroid Telegram](https://t.me/WayDroid)
     - [Magisk Hide Prop](https://github.com/Magisk-Modules-Repo/MagiskHidePropsConf)
     - [Detach](https://github.com/Magisk-Modules-Repo/Detach) (detach app from play store)
     
-    **Not all Magisk (> 24102 builds) guaranteed to work. **
+    **Not all Magisk (> 24102 builds) guaranteed to work**
     
     This problem is related to the su patched kernel implementation.
     
