@@ -17,7 +17,7 @@ More in [Waydroid Telegram](https://t.me/WayDroid)
     In [LSPosed's MagiskonWSA](https://github.com/LSPosed/MagiskonWSA) implementation, there is a [patched kernel with su binaries](https://github.com/LSPosed/WSA-Kernel-SU). Waydroid, on the other hand, uses lxc containers utilizing linux host kernel without su binaries needed to patch zygote.
     Though, there might be a way to load su binaries as kernel module when lxc session is starting. Anybody who is well-versed in lxc can contact me/create issue to explain to me how to make it works.
     
-    Modules requiring zygote/zygisk like [Riru](https://github.com/RikkaApps/Riru), [LSPosed](https://github.com/LSPosed/LSPosed) (pre-zygisk) or Shamiko (module to hide magisk root utilizing zygisk) unfortunately wont work for now unless someone figure out a workaround.
+    Modules requiring zygote/zygisk like [Riru](https://github.com/RikkaApps/Riru), [LSPosed](https://github.com/LSPosed/LSPosed) (pre-zygisk) or Shamiko (module to hide magisk root utilizing zygisk) unfortunately wont work for now unless someone figures out a workaround.
     
     In the meantime, here is some examples of modules that work: 
     - [Busybox NDK](https://github.com/Magisk-Modules-Repo/busybox-ndk)
