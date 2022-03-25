@@ -14,7 +14,7 @@ More in [Waydroid Telegram](https://t.me/WayDroid)
 1. **Zygisk not yet working (No ETA)**
 
     Currently, this script is using MagiskonWSA method in patching initrc so that it would load magisk su binaries close to the end of initrc, before ui started. However zygote is usually loaded at the start of initrc, meaning it would be too late to replace zygote with zygisk zygote by the time su from magisk is loaded. 
-    In [LSPosed's MagiskonWSA](https://github.com/LSPosed/MagiskonWSA) implementation, there is a [patched kernel with su binaries](https://github.com/LSPosed/WSA-Kernel-SU). Waydroid, on the other hand, uses lxc containers utilizing linux host kernel without su binaries needed to patch zygote.
+    In [LSPosed's MagiskonWSA](https://github.com/LSPosed/MagiskonWSA) implementation, there is a [patched kernel with su binaries](https://github.com/LSPosed/WSA-Kernel-SU) just like in Android devices where Magisk patch recovery/boot image to have su binaries. Waydroid, on the other hand, uses lxc containers utilizing linux host kernel without su binaries needed to patch zygote.
     Though, there might be a way to load su binaries as kernel module when lxc session is starting. Anybody who is well-versed in lxc can contact me/create issue to explain to me how to make it works.
     
     Modules requiring zygote/zygisk like [Riru](https://github.com/RikkaApps/Riru), [LSPosed](https://github.com/LSPosed/LSPosed) (pre-zygisk) or Shamiko (module to hide magisk root utilizing zygisk) unfortunately wont work for now unless someone figures out a workaround.
@@ -29,7 +29,7 @@ More in [Waydroid Telegram](https://t.me/WayDroid)
     
     The latest that works is stable v24.1 up to canary 24102. This is due to a recent change in how Magisk load the binaries during booting somewhere in commit between build v24102 to v24103 and present in v24.2, 2420x builds. I might add several links of magisk version to choose from in workflow so that new version from 2430x onwards can be tested. If you run the workflow and install the img properly and magisk icon not shown when booting the first time, that means Magisk is not setup properly. 
     
-    This and the zygisk problem might be solved with su patched kernel as is the case in MagiskOnWSA which stil works fine with Magisk canary 2430x builds.
+    This and the zygisk problem might be solved with su patched kernel as is the case in MagiskOnWSA which works fine with Magisk canary builds to this day.
     
      For now, default would still be v24.1 and thus, do not update magisk apk.
 
