@@ -17,7 +17,7 @@ More in [Waydroid Telegram](https://t.me/WayDroid)
     
     In [LSPosed's MagiskonWSA](https://github.com/LSPosed/MagiskonWSA) implementation, there is a [patched kernel with su binaries](https://github.com/LSPosed/WSA-Kernel-SU) just like in Android devices where Magisk patch recovery/boot image to have su binaries. Waydroid, on the other hand, uses lxc containers utilizing linux host kernel without su binaries needed to patch zygote.
     
-    Though, there might be a way to load su binaries as [kernel module when lxc session is starting](https://askubuntu.com/questions/314817/how-do-i-install-a-kernel-module-in-an-lxc-guest-machine). Anybody who is well-versed in lxc can contact me/create issue to explain to me how to make it work.
+    There might be a way to load su binaries as [kernel module when lxc session is starting](https://askubuntu.com/questions/314817/how-do-i-install-a-kernel-module-in-an-lxc-guest-machine) with one caveat that this solution might introduce security issues to linux host. Anybody who is well-versed in lxc can contact me/create issue to explain to me how to make it work.
     
     Thus, modules requiring zygote/zygisk like [Riru](https://github.com/RikkaApps/Riru), [LSPosed](https://github.com/LSPosed/LSPosed) (pre-zygisk) or Shamiko (module to hide magisk root utilizing zygisk) unfortunately wont work for now unless someone figures out a workaround.
     
