@@ -25,7 +25,7 @@ on:
       magisk_apk:
         description: "Magisk version"
         required: true
-        default: "24.1"
+        default: "24.3"
         type: choice
         options:
         - 24.1
