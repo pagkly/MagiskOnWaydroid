@@ -15,7 +15,7 @@ More in [Waydroid Telegram](https://t.me/WayDroid)
 
     Currently, this script is using MagiskonWSA method in patching initrc so that it would load magisk su binaries close to the end of initrc, before ui started. However zygote is usually loaded at the start of initrc, meaning it would be too late to replace zygote with zygisk zygote by the time su from magisk is loaded. 
     
-    In [LSPosed's MagiskonWSA](https://github.com/LSPosed/MagiskonWSA) implementation, there is a [patched kernel with su binaries](https://github.com/LSPosed/WSA-Kernel-SU) just like in Android devices where Magisk patch recovery/boot image to have su binaries. Waydroid, on the other hand, uses lxc containers utilizing linux host kernel without su binaries needed to patch zygote.
+    In [LSPosed's MagiskonWSA](https://github.com/LSPosed/MagiskonWSA) implementation, there is a [patched WSA kernel with su binaries](https://github.com/LSPosed/WSA-Kernel-SU) just like in Android devices where Magisk patch recovery/boot image to have su binaries. Waydroid, on the other hand, uses lxc containers utilizing linux host kernel without su binaries needed to patch zygote.
     
     There might be a way to load su binaries as [kernel module when lxc session is starting](https://askubuntu.com/questions/314817/how-do-i-install-a-kernel-module-in-an-lxc-guest-machine) with one caveat that this solution might introduce security issues to linux host. Anybody who is well-versed in lxc can contact me/create issue to explain to me how to make it work.
     
@@ -27,13 +27,11 @@ More in [Waydroid Telegram](https://t.me/WayDroid)
     - [Detach](https://github.com/Magisk-Modules-Repo/Detach) (detach app from play store)
     
     
-    Also, **not all Magisk (> 24102 builds, > 24301 builds) guaranteed to work**.
+    Also, **not all Magisk version guaranteed to work**.
     
-    The latest that works is build 24001 < x < 24102 and 24301. This is due to a recent change in how Magisk load the binaries during booting somewhere in commit between build v24102 to v24103 and present in v24.2, 2420x builds. I added several links of magisk version to choose from in workflow so that new stable version can be tested. If you run the workflow and install the img properly and magisk icon not shown when booting the first time, that means Magisk is not setup properly.
+    Versions that work are build 24001 < x < 24102 and 24301. This is due to a change in how Magisk load the binaries during booting somewhere in commit between build v24102 to v24103 and present in v24.2, 2420x builds; and a change in magiskpolicy applet in 24301. I added stable magisk versions to choose from in workflow so that they can be tested. If you run the workflow and install the img properly and magisk icon not shown when booting the first time, that means Magisk is not setup properly.
     
-    This and the zygisk problem might be solved with su patched kernel as is the case in MagiskOnWSA which works fine with Magisk canary builds to this day despite the changes in commit mentioned above.
-    
-     For now, default would still be v24.1 and thus, do not update magisk apk.
+     For now, latest working is 24.1 and 24.3 and thus, do not update magisk apk.
 
 2. **Restart waydroid container twice after additional setup in Magisk.**
    
