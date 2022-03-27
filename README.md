@@ -40,7 +40,17 @@ More in [Waydroid Telegram](https://t.me/WayDroid)
    See [Installation Guide](#installation-guide)
     
 
-
+## Uninstallation/Cleaning Previous Image
+```shell
+waydroid session stop
+sudo waydroid container stop
+sudo systemctl stop waydroid-container.service
+sudo umount -l /var/lib/waydroid/{data,rootfs}
+sudo umount /usr/share/waydroid-extra/images/{system,vendor}.img
+sudo rm -rf /var/lib/waydroid /home/.waydroid ~/waydroid ~/.share/waydroid ~/.local/share/applications/*aydroid* ~/.local/share/waydroid
+sudo rm -rf /usr/share/waydroid-extra/images/*
+```
+  
 ## Installation Guide
 1. Install waydroid dev image on your Linux Distro.
     
