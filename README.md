@@ -42,7 +42,7 @@ More in [Waydroid Telegram](https://t.me/WayDroid)
 
 
 ## Installation Guide
-1. Install waydroid on your Linux Distro.
+1. Install waydroid dev image on your Linux Distro.
     
    - e.g. In Arch Linux with AUR + yay 
 
