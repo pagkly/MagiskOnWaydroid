@@ -41,7 +41,9 @@ More in [Waydroid Telegram](https://t.me/WayDroid)
     
 
 ## Cleaning Previous Image
-Run this command below to clean previous image such as Waydroid 10 or before installing new Waydroid 11 image.
+Run this command below to clean previous image such as Waydroid 10 or before installing new Waydroid 11 image or when updating to new Magisk.
+**Warning: You will lose all your data, apps, settings of previous Android installation.**
+**Backup everything in your Android before you proceed**
 ```shell
 waydroid session stop
 sudo waydroid container stop
