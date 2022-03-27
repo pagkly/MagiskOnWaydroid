@@ -40,7 +40,8 @@ More in [Waydroid Telegram](https://t.me/WayDroid)
    See [Installation Guide](#installation-guide)
     
 
-## Uninstallation/Cleaning Previous Image
+## Cleaning Previous Image
+Run this command below to clean previous image such as Waydroid 10 or before installing new Waydroid 11 image.
 ```shell
 waydroid session stop
 sudo waydroid container stop
