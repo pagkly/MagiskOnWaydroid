@@ -1,4 +1,4 @@
-# Gapps + Magisk on Waydroid 
+# Gapps + Magisk on Waydroid 11
 
 **If you want to skip fork and straight to downloading the modified image, download [latest build with pico OpenGapps and Magisk v24.3](https://github.com/pagkly/MagiskOnWaydroid/suites/5816774979/artifacts/194828849) and follow [installation](#installation-guide) to init modified images.**
 
