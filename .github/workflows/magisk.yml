@@ -83,6 +83,12 @@ jobs:
                 matrix.arch = ["x64"];
                 break;
             }
+            let release_type = "${{ github.event.inputs.release_type }}"
+            switch ( release_type ) {
+              default:
+                matrix.release_type = ["WIS"];
+                break;
+            }
             let magisk_apk = "${{ github.event.inputs.magisk_apk }}"
             switch ( magisk_apk ) {
               default:
@@ -128,9 +134,12 @@ jobs:
 
           arch = "${{ matrix.arch }}"
 
-          res = requests.post("https://store.rg-adguard.net/api/GetFiles", "type=CategoryId&url=858014f3-3934-4abe-8078-4aa193e74ca8&ring=WIS&lang=en-US", headers={
-              "content-type": "application/x-www-form-urlencoded"
-          })
+          release_type_map = {"retail": "Retail", "release preview": "RP", "insider slow": "WIS", "insider fast": "WIF"}
+          release_type = release_type_map["${{ matrix.release_type }}"] if "${{ matrix.release_type }}" != "" else "Retail"	
+          res = requests.post("https://store.rg-adguard.net/api/GetFiles", f"type=CategoryId&url=858014f3-3934-4abe-8078-4aa193e74ca8&ring={release_type}&lang=en-US", headers={	
+              "content-type": "application/x-www-form-urlencoded"	
+          }, verify=False) # source site has expired cert
+          
           html = BeautifulSoup(res.content, "lxml")
 
           a = html.find("a", string=re.compile(f"Microsoft\.UI\.Xaml\..*_{arch}_.*\.appx"))
@@ -370,7 +379,13 @@ jobs:
               chmod 0755 /dev/magisk/magisk32
               copy /sbin/magiskinit /dev/magisk/magiskinit
               chmod 0755 /dev/magisk/magiskinit
-              symlink ./magiskinit /dev/magisk/magiskpolicy
+              
+              # 24107
+              copy /sbin/magiskpolicy /dev/magisk/magiskpolicy	
+              chmod 0755 /dev/magisk/magiskpolicy
+              copy /sbin/magisk.apk /dev/magisk/stub.apk
+              #symlink ./magiskinit /dev/magisk/magiskpolicy # Fix for magisk 24.3-24107 - due to absence of magiskpolicy applet
+              
               mkdir /dev/magisk/.magisk 700
               mkdir /dev/magisk/.magisk/mirror 700
               mkdir /dev/magisk/.magisk/block 700
@@ -483,6 +498,13 @@ jobs:
           sudo find system/system/{app,framework,priv-app} -type f -exec chcon --reference=system/system/framework/ext.jar {} \;
           ls gapps/etc/ | xargs -n 1 -I dir sudo find system/system/etc/dir -type f -exec chcon --reference=system/system/etc/permissions {} \;
           sudo find system/product/{app,etc,overlay,priv-app} -type f -exec chcon --reference=system/product/etc/permissions/privapp-permissions-venezia.xml {} \;
+          
+          # new since Magisk beta 24007
+          sudo patchelf --replace-needed libc.so "${HOME}/libc.so" ./magiskpolicy || true	
+          sudo patchelf --replace-needed libm.so "${HOME}/libm.so" ./magiskpolicy || true	
+          sudo patchelf --replace-needed libdl.so "${HOME}/libdl.so" ./magiskpolicy || true	
+          sudo patchelf --set-interpreter "${HOME}/linker64" ./magiskpolicy || true
+          
           chmod +x ./magiskpolicy
           sudo ./magiskpolicy --load system/vendor/etc/selinux/precompiled_sepolicy --save system/vendor/etc/selinux/precompiled_sepolicy "allow gmscore_app gmscore_app vsock_socket { create connect write read }" "allow gmscore_app device_config_runtime_native_boot_prop file read" "allow gmscore_app system_server_tmpfs dir search" "allow gmscore_app system_server_tmpfs file open"
       - name: Fix GApps prop
