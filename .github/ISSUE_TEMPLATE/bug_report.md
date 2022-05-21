@@ -13,6 +13,9 @@ Choose if workflow does not complete or there is an error in Waydroid
 **Distro (If error in Waydroid only)**
 Arch/Fedora/Ubuntu/etc
 
+**Screenshots**
+If applicable, add screenshots to help explain your problem.
+
 **Describe the bug**
 A clear and concise description of what the bug is.
 
@@ -22,9 +25,6 @@ Steps to reproduce the behavior:
 2. Click on '....'
 3. Scroll down to '....'
 4. See error
-
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
 
 **Additional context**
 Add any other context about the problem here.
