@@ -84,9 +84,9 @@ sudo rm -rf /usr/share/waydroid-extra/images/*
 1. Copy system.img and vendor.img to /usr/share/waydroid-extras/images and init the new img.
     ```shell
     # Create dir if not exists, copy files
-    sudo mkdir -p /user/share/waydroid-extras/images
-    sudo cp system.img /user/share/waydroid-extras/images/
-    sudo cp vendor.img /user/share/waydroid-extras/images/
+    sudo mkdir -p /usr/share/waydroid-extras/images
+    sudo cp system.img /usr/share/waydroid-extras/images/
+    sudo cp vendor.img /usr/share/waydroid-extras/images/
     # Initialize new images
     sudo waydroid init -f
     # Restart waydroid lxc container
