@@ -1,5 +1,7 @@
 # Gapps + Magisk on Waydroid 11
 
+![Screenshot from 2022-05-31 21-33-25](https://user-images.githubusercontent.com/28628331/171199638-1260676c-8d0c-4c56-9ca6-65950ed5374a.png)
+
 **If you want to skip fork and straight to downloading the modified image, download [latest build with pico OpenGapps and Magisk v24.3](https://github.com/pagkly/MagiskOnWaydroid/suites/5816774979/artifacts/194828849) and follow [installation](#installation-guide) to init modified images.**
 
 Forked [MagiskOnWSA](https://github.com/LSPosed/MagiskOnWSA) and modified to install Magisk and OpenGapps (pico) replacing FOSS apps in [BlissOS/LineageOS 18.1 dev image (Android 11)](https://sourceforge.net/projects/blissos-dev/files/waydroid/lineage/lineage-18.1/)
@@ -65,7 +67,7 @@ sudo rm -rf /usr/share/waydroid-extra/images/*
       # install one of the kernel that supports ashmem,binder
       # sudo pacman -S linux-mainline-anbox #(5.17-rc)
       # sudo pacman -S linux-zen #(tested on 5.16 - 5.17rc; 5.17.1 not working)
-      # sudo pacman -S linux-xanmod-anbox #(5.18>; the one Im using right now)
+      # sudo pacman -S linux-xanmod-anbox #(5.17.12>; the one Im using right now)
       sudo pacman -Syuu
       yay -S waydroid-image-dev
       ```
