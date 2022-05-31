@@ -64,7 +64,8 @@ sudo rm -rf /usr/share/waydroid-extra/images/*
       ```shell
       # install one of the kernel that supports ashmem,binder
       # sudo pacman -S linux-mainline-anbox #(5.17-rc)
-      # sudo pacman -S linux-zen #(currently 5.16)
+      # sudo pacman -S linux-zen #(tested on 5.16 - 5.17rc; 5.17.1 not working)
+      # sudo pacman -S linux-xanmod-anbox #(5.18>; the one Im using right now)
       sudo pacman -Syuu
       yay -S waydroid-image-dev
       ```
