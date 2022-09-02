@@ -104,12 +104,12 @@ sudo rm -rf /usr/share/waydroid-extra/images/*
     
     # First container restart
     sudo systemctl restart waydroid-container.service
-    waydroid start session #(wait until successfully booted)
-    waydroid stop session
+    waydroid session start #(wait until successfully booted)
+    waydroid session stop
     
     # Second container restart
     sudo systemctl restart waydroid-container.service
-    waydroid start session #(wait until successfully booted)
+    waydroid session start #(wait until successfully booted)
     waydroid show-full-ui
     ```
     
