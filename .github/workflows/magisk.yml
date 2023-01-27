@@ -25,15 +25,15 @@ on:
       magisk_apk:
         description: "Magisk version"
         required: true
-        default: "24.3"
+        default: "25.2"
         type: choice
         options:
         - 24.1
         - 24.2
         - 24.3
-        - stable
-        - beta
+        - 25.2
         - canary
+        - delta
       gapps_variant:
         description: "Variants of gapps"
         required: true
@@ -218,7 +218,13 @@ jobs:
               magisk_apk = "https://github.com/topjohnwu/Magisk/releases/download/v24.2/Magisk-v24.2.apk"
           if magisk_apk == "24.3":
               magisk_apk = "https://github.com/topjohnwu/Magisk/releases/download/v24.3/Magisk-v24.3.apk"
-          if magisk_apk == "stable" or magisk_apk == "beta" or magisk_apk == "canary":
+          if magisk_apk == "25.2":
+              magisk_apk = "https://github.com/topjohnwu/Magisk/releases/download/v25.2/Magisk-v25.2.apk"
+          if magisk_apk == "canary":
+              magisk_apk = "https://raw.githubusercontent.com/topjohnwu/magisk-files/canary/app-debug.apk"
+          if magisk_apk == "delta":
+              magisk_apk = "https://huskydg.github.io/magisk-files/app-release.apk"
+          if magisk_apk == "stable" or magisk_apk == "beta":
               magisk_apk = json.loads(requests.get(f"https://github.com/topjohnwu/magisk-files/raw/master/{magisk_apk}.json").content)['magisk']['link']
           
 
