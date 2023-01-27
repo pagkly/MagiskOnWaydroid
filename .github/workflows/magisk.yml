@@ -92,7 +92,7 @@ jobs:
             let magisk_apk = "${{ github.event.inputs.magisk_apk }}"
             switch ( magisk_apk ) {
               default:
-                matrix.magisk_apk = ["stable"];
+                matrix.magisk_apk = ["25.2"];
                 break;
             }
             let gapps_variant = "${{ github.event.inputs.gapps_variant }}"
