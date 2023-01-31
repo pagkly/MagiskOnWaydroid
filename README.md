@@ -3,7 +3,9 @@
 ![Screenshot from 2022-05-31 21-33-25](https://user-images.githubusercontent.com/28628331/171199638-1260676c-8d0c-4c56-9ca6-65950ed5374a.png)
 
 **Follow [installation](#installation-guide) to init modified images.**
-Unable to test due to this [issue](https://github.com/waydroid/waydroid/issues/282), hoping somebody can provide feedback if 25.2 is working.
+
+Unable to test latest build in Arch due to recent waydroid update showing this [issue](https://github.com/waydroid/waydroid/issues/282), hoping somebody can provide feedback if 25.2 is working in Ubuntu or Arch.
+
 Forked [MagiskOnWSA](https://github.com/LSPosed/MagiskOnWSA) and modified to install Magisk and OpenGapps (pico) replacing FOSS apps in [BlissOS/LineageOS 18.1 dev image (Android 11)](https://sourceforge.net/projects/blissos-dev/files/waydroid/lineage/lineage-18.1/)
 
 Most OpenGApps variants works except for aroma (aroma does not support x86_64, please use super instead)
