@@ -89,9 +89,9 @@ sudo rm -rf /usr/share/waydroid-extra/images/*
 1. Copy system.img and vendor.img to /usr/share/waydroid-extras/images and init the new img.
     ```shell
     # Create dir if not exists, copy files
-    sudo mkdir -p /usr/share/waydroid-extras/images
-    sudo cp system.img /usr/share/waydroid-extras/images/
-    sudo cp vendor.img /usr/share/waydroid-extras/images/
+    sudo mkdir -p /usr/share/waydroid-extra/images
+    sudo cp system.img /usr/share/waydroid-extra/images/
+    sudo cp vendor.img /usr/share/waydroid-extra/images/
     # Initialize new images
     sudo waydroid init -f
     # Restart waydroid lxc container
@@ -102,7 +102,7 @@ sudo rm -rf /usr/share/waydroid-extra/images/*
     ```
 1. After additional setup in magisk, reboot and restart container twice (refer to [Bugs](#bugs) as to why)
     ```shell
-    waydroid stop session
+    waydroid session stop
     
     # First container restart
     sudo systemctl restart waydroid-container.service
