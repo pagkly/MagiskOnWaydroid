@@ -37,7 +37,7 @@ on:
       gapps_variant:
         description: "Variants of gapps"
         required: true
-        default: "pico"
+        default: "none"
         type: choice
         options:
         - none
@@ -458,37 +458,7 @@ jobs:
           EOF
           wine64 ~/makepri.exe new /pr pri /in MicrosoftCorporationII.WindowsSubsystemForAndroid /cf priconfig.xml /of ${{ matrix.arch }}/resources.pri /o
           sed -i -zE "s/<Resources.*Resources>/<Resources>\n$(cat xml/* | grep -Po '<Resource [^>]*/>' | sed ':a;N;$!ba;s/\n/\\n/g' | sed 's/\$/\\$/g' | sed 's/\//\\\//g')\n<\/Resources>/g" ${{ matrix.arch }}/AppxManifest.xml
-      - name: Remove FOSS Apps
-        run: |
-          sudo rm -rf system/system/app/com.google.android.gsf
-          sudo rm -rf system/system/app/com.aurora.adroid
-          sudo rm -rf system/system/app/com.aurora.store
-          sudo rm -rf system/system/app/com.etesync.syncadapter
-          sudo rm -rf system/system/app/is.xyz.mpv
-          sudo rm -rf system/system/app/me.jfenn.alarmio
-          sudo rm -rf system/system/app/org.microg.gms.droidguard
-          sudo rm -rf system/system/app/org.microg.nlp.backend.ichnaea
-          sudo rm -rf system/system/app/org.microg.nlp.backend.nominatim
-          sudo rm -rf system/system/app/org.schabi.newpipe
-          sudo rm -rf system/system/app/ws.xsoh.etar
-          sudo rm -rf system/system/priv-app/AuroraServices_v1.1.1
-          sudo rm -rf system/system/priv-app/com.google.android.gms
-          sudo rm -rf system/system/priv-app/com.android.vending
-          sudo rm -rf system/system/product/app/Etar
-          sudo rm -rf system/system/product/priv-app/Contacts
-          sudo rm -rf system/system/product/app/ExactCalculator
-          sudo rm -rf system/system/product/priv-app/Eleven
-          sudo rm -rf system/system/app/com.simplemobiletools.gallery.pro
-          sudo rm -rf system/system/app/NotePad
-          sudo rm -rf system/system/app/org.bromite.bromite
-          sudo rm -rf system/system/app/com.google.android.webview
-          sudo rm -rf system/system/app/com.android.webview
-          sudo mv system/system/xbin/su system/system/xbin/suold
-          sudo ls system/system/xbin
-          wget -qO- "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/archive/$GITHUB_REF.tar.gz" | sudo tar --wildcards -zxvf- --strip-component=2 '*/${{ matrix.arch }}/system/*'
-          sudo find system/system/priv-app -type d -exec chmod 0755 {} \;
-          sudo find system/system/priv-app -type f -exec chmod 0644 {} \;
-          sudo find system/system/priv-app -exec chcon --reference=system/system/priv-app {} \;
+
       - name: Integrate GApps
         if: ${{ matrix.gapps_variant != 'none' && matrix.gapps_variant != '' }}
         run: |
