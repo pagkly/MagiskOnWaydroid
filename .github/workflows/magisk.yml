@@ -325,10 +325,6 @@ jobs:
           unzip -p gapps.zip {Core,GApps}/'*.lz' | tar --lzip -C gapps -xvf - -i --strip-components=2 --exclude='setupwizardtablet-x86_64' --exclude='packageinstallergoogle-all' --exclude='speech-common' --exclude='markup-lib-arm' --exclude='markup-lib-arm64' --exclude='markup-all' --exclude='setupwizarddefault-x86_64' --exclude='pixellauncher-all' --exclude='pixellauncher-common'
           e2fsck -yf ${{ matrix.arch }}/system.img
           resize2fs ${{ matrix.arch }}/system.img $(( $(du -sB512 gapps | cut -f1) + $(du -sB512 ${{ matrix.arch }}/system.img | cut -f1) ))s
-          e2fsck -yf ${{ matrix.arch }}/product.img
-          resize2fs ${{ matrix.arch }}/product.img 1024M
-          e2fsck -yf ${{ matrix.arch }}/system_ext.img
-          resize2fs -M ${{ matrix.arch }}/system_ext.img
       - name: Expand vendor
         run: |
           e2fsck -yf ${{ matrix.arch }}/vendor.img
