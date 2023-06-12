@@ -348,7 +348,7 @@ jobs:
       - name: Integrate Magisk
         if: ${{ github.event.inputs.root_sol == 'magisk' || github.event.inputs.root_sol == '' }}
         run: |
-          sudo mkdir system/debug_ramdisk
+          #sudo mkdir system/debug_ramdisk
           sudo cp "magisk/magisk"* "system/debug_ramdisk/"
           sudo cp magisk.zip "system/debug_ramdisk/stub.apk" || abort
           
