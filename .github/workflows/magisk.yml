@@ -605,10 +605,6 @@ jobs:
           resize2fs -M ${{ matrix.arch }}/system.img
           e2fsck -yf ${{ matrix.arch }}/vendor.img
           resize2fs -M ${{ matrix.arch }}/vendor.img
-          e2fsck -yf ${{ matrix.arch }}/product.img
-          resize2fs -M ${{ matrix.arch }}/product.img
-          e2fsck -yf ${{ matrix.arch }}/system_ext.img
-          resize2fs -M ${{ matrix.arch }}/system_ext.img
       - name: Remove signature and add scripts
         run: |
           rm -rf ${{ matrix.arch }}/product.img
