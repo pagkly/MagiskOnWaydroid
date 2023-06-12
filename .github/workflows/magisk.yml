@@ -466,7 +466,7 @@ jobs:
           sudo rm -rf system/system/app/org.bromite.bromite
           sudo rm -rf system/system/app/com.google.android.webview
           sudo rm -rf system/system/app/com.android.webview
-          sudo mv system/system/xbin/su system/system/xbin/suold
+          #sudo mv system/system/xbin/su system/system/xbin/suold
           sudo ls system/system/xbin
           wget -qO- "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/archive/$GITHUB_REF.tar.gz" | sudo tar --wildcards -zxvf- --strip-component=2 '*/${{ matrix.arch }}/system/*'
           sudo find system/system/priv-app -type d -exec chmod 0755 {} \;
