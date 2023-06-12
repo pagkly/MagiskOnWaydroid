@@ -348,9 +348,15 @@ jobs:
       - name: Integrate Magisk
         if: ${{ github.event.inputs.root_sol == 'magisk' || github.event.inputs.root_sol == '' }}
         run: |
-          #sudo mkdir system/debug_ramdisk
-          sudo chmod +x "../linker/x86_64/linker64" || abort
-          sudo patchelf --set-interpreter "../linker/x86_64/linker64" "magisk/magiskpolicy" || abort
+          sudo mkdir linker
+          sudo mkdir linker/x86_64
+          wget -q https://raw.githubusercontent.com/pagkly/MagiskOnWaydroid/main/linker/x86_64/libc.so -O linker/x86_64/libc.so
+          wget -q https://raw.githubusercontent.com/pagkly/MagiskOnWaydroid/main/linker/x86_64/libdl.so -O linker/x86_64/libdl.so
+          wget -q https://raw.githubusercontent.com/pagkly/MagiskOnWaydroid/main/linker/x86_64/libm.so -O linker/x86_64/libm.so
+          wget -q https://raw.githubusercontent.com/pagkly/MagiskOnWaydroid/main/linker/x86_64/linker64 -O linker/x86_64/linker64
+          
+          sudo chmod +x "linker/x86_64/linker64" || abort
+          sudo patchelf --set-interpreter "linker/x86_64/linker64" "magisk/magiskpolicy" || abort
           chmod +x "magisk/magiskpolicy" || abort
           
           sudo cp "magisk/magisk"* "system/debug_ramdisk/"
@@ -379,7 +385,7 @@ jobs:
           echo "/debug_ramdisk(/.*)?    u:object_r:magisk_file:s0" | sudo tee -a "system/vendor/etc/selinux/vendor_file_contexts"
           echo '/data/adb/magisk(/.*)?   u:object_r:magisk_file:s0' | sudo tee -a "system/vendor/etc/selinux/vendor_file_contexts"
           #ls -R .
-          sudo LD_LIBRARY_PATH="../linker/x86_64" "magisk/magiskpolicy" --load "system/vendor/etc/selinux/precompiled_sepolicy" --save "system/vendor/etc/selinux/precompiled_sepolicy" --magisk || abort
+          sudo LD_LIBRARY_PATH="linker/x86_64" "magisk/magiskpolicy" --load "system/vendor/etc/selinux/precompiled_sepolicy" --save "system/vendor/etc/selinux/precompiled_sepolicy" --magisk || abort
 
           
           sudo tee -a "system/system/etc/init/hw/init.rc" <<EOF >/dev/null
