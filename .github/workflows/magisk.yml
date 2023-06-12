@@ -372,9 +372,9 @@ jobs:
           sudo find "system/debug_ramdisk" -type f -exec chmod 0711 {} \;
           sudo find "system/debug_ramdisk" -type f -exec chown root:root {} \;
           sudo find "system/debug_ramdisk" -type f -exec setfattr -n security.selinux -v "u:object_r:magisk_file:s0" {} \; || abort
-          echo "/debug_ramdisk(/.*)?    u:object_r:magisk_file:s0" | sudo tee -a "vendor/etc/selinux/vendor_file_contexts"
-          echo '/data/adb/magisk(/.*)?   u:object_r:magisk_file:s0' | sudo tee -a "vendor/etc/selinux/vendor_file_contexts"
-          sudo LD_LIBRARY_PATH="../linker/x86_64" "magisk/magiskpolicy" --load "vendor/etc/selinux/precompiled_sepolicy" --save "vendor/etc/selinux/precompiled_sepolicy" --magisk || abort
+          echo "/debug_ramdisk(/.*)?    u:object_r:magisk_file:s0" | sudo tee -a "system/vendor/etc/selinux/vendor_file_contexts"
+          echo '/data/adb/magisk(/.*)?   u:object_r:magisk_file:s0' | sudo tee -a "system/vendor/etc/selinux/vendor_file_contexts"
+          sudo LD_LIBRARY_PATH="../linker/x86_64" "magisk/magiskpolicy" --load "system/vendor/etc/selinux/precompiled_sepolicy" --save "system/vendor/etc/selinux/precompiled_sepolicy" --magisk || abort
 
           
           sudo tee -a "system/system/etc/init/hw/init.rc" <<EOF >/dev/null
