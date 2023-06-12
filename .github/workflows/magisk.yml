@@ -441,21 +441,6 @@ jobs:
           done
 
           echo -e "Integrate Magisk done\n"
-      - name: Merge Language Resources
-        run: |
-          cp ${{ matrix.arch }}/resources.pri pri/en-us.pri
-          cp ${{ matrix.arch }}/AppxManifest.xml xml/en-us.xml
-          tee priconfig.xml <<EOF
-          <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-          <resources targetOsVersion="10.0.0" majorVersion="1">
-              <index root="\" startIndexAt="\">
-                  <indexer-config type="folder" foldernameAsQualifier="true" filenameAsQualifier="true" qualifierDelimiter="."/>
-                  <indexer-config type="PRI"/>
-              </index>
-          </resources>
-          EOF
-          wine64 ~/makepri.exe new /pr pri /in MicrosoftCorporationII.WindowsSubsystemForAndroid /cf priconfig.xml /of ${{ matrix.arch }}/resources.pri /o
-          sed -i -zE "s/<Resources.*Resources>/<Resources>\n$(cat xml/* | grep -Po '<Resource [^>]*/>' | sed ':a;N;$!ba;s/\n/\\n/g' | sed 's/\$/\\$/g' | sed 's/\//\\\//g')\n<\/Resources>/g" ${{ matrix.arch }}/AppxManifest.xml
       - name: Remove FOSS Apps
         run: |
           sudo rm -rf system/system/app/com.google.android.gsf
