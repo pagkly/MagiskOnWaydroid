@@ -349,6 +349,10 @@ jobs:
         if: ${{ github.event.inputs.root_sol == 'magisk' || github.event.inputs.root_sol == '' }}
         run: |
           #sudo mkdir system/debug_ramdisk
+          sudo chmod +x "../linker/x86_64/linker64" || abort
+          sudo patchelf --set-interpreter "../linker/x86_64/linker64" "magisk/magiskpolicy" || abort
+          chmod +x "magisk/magiskpolicy" || abort
+          
           sudo cp "magisk/magisk"* "system/debug_ramdisk/"
           sudo cp magisk.zip "system/debug_ramdisk/stub.apk" || abort
           
@@ -374,7 +378,7 @@ jobs:
           sudo find "system/debug_ramdisk" -type f -exec setfattr -n security.selinux -v "u:object_r:magisk_file:s0" {} \; || abort
           echo "/debug_ramdisk(/.*)?    u:object_r:magisk_file:s0" | sudo tee -a "system/vendor/etc/selinux/vendor_file_contexts"
           echo '/data/adb/magisk(/.*)?   u:object_r:magisk_file:s0' | sudo tee -a "system/vendor/etc/selinux/vendor_file_contexts"
-          ls -R .
+          #ls -R .
           sudo LD_LIBRARY_PATH="../linker/x86_64" "magisk/magiskpolicy" --load "system/vendor/etc/selinux/precompiled_sepolicy" --save "system/vendor/etc/selinux/precompiled_sepolicy" --magisk || abort
 
           
