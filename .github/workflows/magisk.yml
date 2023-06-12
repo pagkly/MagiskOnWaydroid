@@ -220,7 +220,7 @@ jobs:
           magisk_apk = """${{ github.event.inputs.magisk_apk }}"""
           
           if not magisk_apk:
-              magisk_apk = "25.2"
+              magisk_apk = "26.1"
           if magisk_apk == "24.1":
               magisk_apk = "https://github.com/topjohnwu/Magisk/releases/download/v24.1/Magisk-v24.1.apk"
           if magisk_apk == "24.2":
@@ -229,6 +229,8 @@ jobs:
               magisk_apk = "https://github.com/topjohnwu/Magisk/releases/download/v24.3/Magisk-v24.3.apk"
           if magisk_apk == "25.2":
               magisk_apk = "https://github.com/topjohnwu/Magisk/releases/download/v25.2/Magisk-v25.2.apk"
+          if magisk_apk == "26.1":
+              magisk_apk = "https://github.com/topjohnwu/Magisk/releases/download/v26.1/Magisk-v26.1.apk"
           if magisk_apk == "canary":
               magisk_apk = "https://raw.githubusercontent.com/topjohnwu/magisk-files/canary/app-debug.apk"
           if magisk_apk == "delta":
@@ -346,103 +348,88 @@ jobs:
       - name: Integrate Magisk
         if: ${{ github.event.inputs.root_sol == 'magisk' || github.event.inputs.root_sol == '' }}
         run: |
-          sudo mkdir system/sbin
-          sudo chcon --reference system/init.environ.rc system/sbin
-          sudo chown root:root system/sbin
-          sudo chmod 0700 system/sbin
-          sudo cp magisk/* system/sbin/
-          sudo mkdir -p userdata/adb/magisk
-          sudo chmod -R 700 userdata/adb
-          sudo cp magisk/* userdata/adb/magisk/
-          sudo find userdata/adb/magisk -type f -exec chmod 0755 {} \;
-          sudo cp magisk.zip userdata/adb/magisk/magisk.apk
-          sudo tee -a system/sbin/loadpolicy.sh <<EOF
+          sudo mkdir system/debug_ramdisk
+          sudo cp "magisk/magisk"* "system/debug_ramdisk/"
+          sudo cp magisk.zip "system/debug_ramdisk/stub.apk" || abort
+          
+          sudo tee -a "system/debug_ramdisk/loadpolicy.sh" <<EOF >/dev/null || abort
           #!/system/bin/sh
+          MAGISKTMP=/debug_ramdisk
+          export MAGISKTMP
+          mkdir -p /data/adb/magisk
+          cp \$MAGISKTMP/* /data/adb/magisk/
+          sync
+          chmod -R 755 /data/adb/magisk
           restorecon -R /data/adb/magisk
-          for module in \$(ls /data/adb/modules); do
-              if ! [ -f "/data/adb/modules/\$module/disable" ] && [ -f "/data/adb/modules/\$module/sepolicy.rule" ]; then
-                  /sbin/magiskpolicy --live --apply "/data/adb/modules/\$module/sepolicy.rule"
-              fi
+          MAKEDEV=1 \$MAGISKTMP/magisk --preinit-device 2>&1
+          RULESCMD=""
+          for r in \$MAGISKTMP/.magisk/preinit/*/sepolicy.rule; do
+            [ -f "\$r" ] || continue
+            RULESCMD="\$RULESCMD --apply \$r"
           done
+          \$MAGISKTMP/magiskpolicy --live \$RULESCMD 2>&1
           EOF
-          sudo find system/sbin -type f -exec chmod 0755 {} \;
-          sudo find system/sbin -type f -exec chown root:root {} \;
-          sudo find system/sbin -type f -exec chcon --reference system/product {} \;
-          # new since v24.3
-          sudo patchelf --replace-needed libc.so "${HOME}/libc.so" ./magiskpolicy || true
-          sudo patchelf --replace-needed libm.so "${HOME}/libm.so" ./magiskpolicy || true
-          sudo patchelf --replace-needed libdl.so "${HOME}/libdl.so" ./magiskpolicy || true
-          sudo patchelf --set-interpreter "${HOME}/linker64" ./magiskpolicy || true
-          # new since v24.3
-          chmod +x ./magiskpolicy
-          echo '/dev/magisk(/.*)?    u:object_r:magisk_file:s0' | sudo tee -a system/vendor/etc/selinux/vendor_file_contexts
-          echo '/data/adb/magisk(/.*)?   u:object_r:magisk_file:s0' | sudo tee -a system/vendor/etc/selinux/vendor_file_contexts
-          echo '/system/bin/strace u:object_r:zygote_socket:s0' | sudo tee -a system/vendor/etc/selinux/vendor_file_contexts
-          sudo ./magiskpolicy --load system/vendor/etc/selinux/precompiled_sepolicy --save system/vendor/etc/selinux/precompiled_sepolicy --magisk "allow * magisk_file lnk_file *"
-          sudo tee -a system/system/etc/init/hw/init.rc <<EOF
+          sudo find "system/debug_ramdisk" -type f -exec chmod 0711 {} \;
+          sudo find "system/debug_ramdisk" -type f -exec chown root:root {} \;
+          sudo find "system/debug_ramdisk" -type f -exec setfattr -n security.selinux -v "u:object_r:magisk_file:s0" {} \; || abort
+          echo "/debug_ramdisk(/.*)?    u:object_r:magisk_file:s0" | sudo tee -a "vendor/etc/selinux/vendor_file_contexts"
+          echo '/data/adb/magisk(/.*)?   u:object_r:magisk_file:s0' | sudo tee -a "vendor/etc/selinux/vendor_file_contexts"
+          sudo LD_LIBRARY_PATH="../linker/x86_64" "magisk/magiskpolicy" --load "vendor/etc/selinux/precompiled_sepolicy" --save "vendor/etc/selinux/precompiled_sepolicy" --magisk || abort
 
+          
+          sudo tee -a "system/system/etc/init/hw/init.rc" <<EOF >/dev/null
           on post-fs-data
-              start logd
+              mkdir /dev/debug_ramdisk_mirror
+              mount none /debug_ramdisk /dev/debug_ramdisk_mirror bind
+              mount none none /dev/debug_ramdisk_mirror private
+              mount tmpfs magisk /debug_ramdisk mode=0755
+              copy /dev/debug_ramdisk_mirror/magisk64 /debug_ramdisk/magisk64
+              chmod 0755 /debug_ramdisk/magisk64
+              symlink ./magisk64 /debug_ramdisk/magisk
+              symlink ./magisk64 /debug_ramdisk/su
+              symlink ./magisk64 /debug_ramdisk/resetprop
               start adbd
-              mkdir /dev/magisk
-              mount tmpfs tmpfs /dev/magisk mode=0755
-              copy /sbin/magisk64 /dev/magisk/magisk64
-              chmod 0755 /dev/magisk/magisk64
-              symlink ./magisk64 /dev/magisk/magisk
-              symlink ./magisk64 /dev/magisk/su
-              symlink ./magisk64 /dev/magisk/resetprop
-              copy /sbin/magisk32 /dev/magisk/magisk32
-              chmod 0755 /dev/magisk/magisk32
-              copy /sbin/magiskinit /dev/magisk/magiskinit
-              chmod 0755 /dev/magisk/magiskinit
-              
-              # 24107
-              copy /sbin/magiskpolicy /dev/magisk/magiskpolicy	
-              chmod 0755 /dev/magisk/magiskpolicy
-              copy /sbin/magisk.apk /dev/magisk/stub.apk
-              #symlink ./magiskinit /dev/magisk/magiskpolicy # Fix for magisk 24.3-24107 - due to absence of magiskpolicy applet
-              
-              mkdir /dev/magisk/.magisk 700
-              mkdir /dev/magisk/.magisk/mirror 700
-              mkdir /dev/magisk/.magisk/block 700
-              rm /dev/.magisk_unblock
-              start IhhslLhHYfse
-              start FAhW7H9G5sf
-              # fix for magisk modules to load properly
-              umount /dev/magisk/.magisk/mirror/data
-              rm /dev/magisk/.magisk/mirror/data
-              symlink /data /dev/magisk/.magisk/mirror/data
-              wait /dev/.magisk_unblock 40
-              rm /dev/.magisk_unblock
-              # fix for Termux to work
-              mount devpts devpts /dev/pts noexec nosuid gid=5 mode=620
-              mknod /dev/tty c 5 0
-              chmod 0666 /dev/tty
+              copy /dev/debug_ramdisk_mirror/magisk32 /debug_ramdisk/magisk32
+              chmod 0755 /debug_ramdisk/magisk32
+              copy /dev/debug_ramdisk_mirror/magiskinit /debug_ramdisk/magiskinit
+              chmod 0750 /debug_ramdisk/magiskinit
+              copy /dev/debug_ramdisk_mirror/magiskpolicy /debug_ramdisk/magiskpolicy
+              chmod 0755 /debug_ramdisk/magiskpolicy
+              mkdir /debug_ramdisk/.magisk
+              mkdir /debug_ramdisk/.magisk/mirror 0
+              mkdir /debug_ramdisk/.magisk/block 0
+              mkdir /debug_ramdisk/.magisk/worker 0
+              copy /dev/debug_ramdisk_mirror/stub.apk /debug_ramdisk/stub.apk
+              chmod 0644 /debug_ramdisk/stub.apk
+              copy /dev/debug_ramdisk_mirror/loadpolicy.sh /debug_ramdisk/loadpolicy.sh
+              chmod 0755 /debug_ramdisk/loadpolicy.sh
+              umount /dev/debug_ramdisk_mirror
+              rmdir /dev/debug_ramdisk_mirror
+              exec u:r:magisk:s0 0 0 -- /system/bin/sh /debug_ramdisk/loadpolicy.sh
+              exec u:r:magisk:s0 0 0 -- /debug_ramdisk/magisk --post-fs-data
 
-          service IhhslLhHYfse /system/bin/sh /sbin/loadpolicy.sh
-              user root
-              seclabel u:r:magisk:s0
-              oneshot
+          on property:vold.decrypt=trigger_restart_framework
+              exec u:r:magisk:s0 0 0 -- /debug_ramdisk/magisk --service
 
-          service FAhW7H9G5sf /dev/magisk/magisk --post-fs-data
-              user root
-              seclabel u:r:magisk:s0
-              oneshot
-
-          service HLiFsR1HtIXVN6 /dev/magisk/magisk --service
-              class late_start
-              user root
-              seclabel u:r:magisk:s0
-              oneshot
+          on nonencrypted
+              exec u:r:magisk:s0 0 0 -- /debug_ramdisk/magisk --service
 
           on property:sys.boot_completed=1
-              start YqCTLTppv3ML
+              exec u:r:magisk:s0 0 0 --  /debug_ramdisk/magisk --boot-complete
 
-          service YqCTLTppv3ML /dev/magisk/magisk --boot-complete
-              user root
-              seclabel u:r:magisk:s0
-              oneshot
+          on property:init.svc.zygote=stopped
+              exec u:r:magisk:s0 0 0 -- /debug_ramdisk/magisk --zygote-restart
           EOF
+          
+          for i in "system/system/etc/init/hw"/*; do
+              if [[ "$i" =~ init.zygote.+\.rc ]]; then
+                  echo "Inject zygote restart $i"
+                  sudo awk -i inplace '{if($0 ~ /service zygote /){print $0;print "    exec u:r:magisk:s0 0 0 -- /debug_ramdisk/magisk --zygote-restart";a="";next}} 1' "$i"
+                  sudo setfattr -n security.selinux -v "u:object_r:system_file:s0" "$i" || abort
+              fi
+          done
+
+          echo -e "Integrate Magisk done\n"
       - name: Merge Language Resources
         run: |
           cp ${{ matrix.arch }}/resources.pri pri/en-us.pri
