@@ -86,16 +86,18 @@ sudo rm -rf /usr/share/waydroid-extra/images/*
     ![Download](https://docs.github.com/assets/images/help/repository/artifact-drop-down-updated.png)
 1. Unzip the artifact
     - The size shown in the webpage is uncompressed size and the zip you download will be compressed. So the size of the zip will be much less than the size shown in the webpage.
-1. Copy system.img and vendor.img to /usr/share/waydroid-extras/images and init the new img.
-    ```shell
-    # Create dir if not exists, copy files
-    sudo mkdir -p /usr/share/waydroid-extras/images
-    sudo cp system.img /usr/share/waydroid-extras/images/
-    sudo cp vendor.img /usr/share/waydroid-extras/images/
+1. Copy system.img and vendor.img to ~~/usr/share/waydroid-extras/images~~ /var/lib/waydroid/images and init the new img.
+    ```shell    
+    # Remove original img and copy magisk img
+    sudo rm -rf /var/lib/waydroid/images/system.img
+    sudo rm -rf /var/lib/waydroid/images/vendor.img
+    sudo cp system.img /var/lib/waydroid/images/system.img
+    sudo cp vendor.img /var/lib/waydroid/images/vendor.img
+
     # Initialize new images
-    sudo waydroid init -f
+    sudo waydroid init
     # Restart waydroid lxc container
-    sudo systemctl start waydroid-container.service
+    sudo systemctl restart waydroid-container.service
     waydroid session start &
     # Start Waydroid UI
     waydroid show-full-ui
