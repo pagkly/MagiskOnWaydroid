@@ -1,6 +1,7 @@
 # Gapps + Magisk on Waydroid 11
 
 ![Screenshot from 2022-05-31 21-33-25](https://user-images.githubusercontent.com/28628331/171199638-1260676c-8d0c-4c56-9ca6-65950ed5374a.png)
+![image](https://github.com/pagkly/MagiskOnWaydroid/assets/28628331/29a2b8f5-d9a6-41bb-ae82-8cba412c0bd0)
 
 **Follow [installation](#installation-guide) to init modified images.**
 
