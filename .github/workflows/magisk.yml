@@ -15,6 +15,7 @@ on:
         type: choice
         options:
         - x64
+        - arm64
       and_ver:
         description: "Android Version"
         required: true
